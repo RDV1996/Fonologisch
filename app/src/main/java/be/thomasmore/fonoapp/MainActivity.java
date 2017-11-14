@@ -1,4 +1,4 @@
-package be.thomasmore.fonologish;
+package be.thomasmore.fonoapp;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

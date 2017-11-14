@@ -1,4 +1,4 @@
-package be.thomasmore.fonologish;
+package be.thomasmore.fonoapp;
 
 import org.junit.Test;
 

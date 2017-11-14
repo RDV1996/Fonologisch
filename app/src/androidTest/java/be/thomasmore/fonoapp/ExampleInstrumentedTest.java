@@ -1,4 +1,4 @@
-package be.thomasmore.fonologish;
+package be.thomasmore.fonoapp;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
