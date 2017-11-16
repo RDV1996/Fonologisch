@@ -37,7 +37,8 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=""/>
+                android:text=""
+                android:id="@+id/login"/>
         </LinearLayout>
 
         <LinearLayout
@@ -51,13 +52,15 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=""/>
+                android:text=""
+                android:id="@+id/wachtwoord"/>
         </LinearLayout>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Aanmelden"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:onClick="aanmelden"/>
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
