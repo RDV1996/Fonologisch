@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">FonoApp</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_age_select">AgeSelect</string>
+    <string name="title_activity_age_select">Maak je keuze</string>
+    <string name="title_activity_exercise_one">Oefening 1</string>
+    <string name="title_activity_exercise_two">Oefening 2</string>
+    <string name="title_activity_exercise_three">ExerciseThree</string>
 </resources>

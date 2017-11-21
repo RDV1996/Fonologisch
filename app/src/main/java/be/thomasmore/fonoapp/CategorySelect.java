@@ -1,5 +1,6 @@
 package be.thomasmore.fonoapp;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -36,7 +37,7 @@ public class CategorySelect extends AppCompatActivity {
 
         for (int i = 0; i < 2; i++) {
             Button button = new Button(this);
-            button.setText("leefteid");
+            button.setText("leeftijd");
             button.setTag(i);
             button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
             button.setGravity(Gravity.CENTER);
@@ -145,7 +146,7 @@ public class CategorySelect extends AppCompatActivity {
         button.setGravity(Gravity.CENTER);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                toon(v.getTag() + "");
+                nextActivity();
             }
         });
 
@@ -156,5 +157,12 @@ public class CategorySelect extends AppCompatActivity {
     private void toon(String tekst) {
         Toast.makeText(getBaseContext(), tekst, Toast.LENGTH_SHORT).show();
     }
+
+    private void nextActivity() {
+        Intent intent = new Intent(this, ExerciseOne.class);
+        startActivity(intent);
+    }
+
+
 
 }
