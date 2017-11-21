@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void aanmelden(View v){
-        Intent intent = new Intent(this, AgeSelect.class);
+        Intent intent = new Intent(this, CategorySelect.class);
         startActivity(intent);
     }
 

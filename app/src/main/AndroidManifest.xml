@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AgeSelect"
+            android:name=".CategorySelect"
             android:label="@string/title_activity_age_select"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
