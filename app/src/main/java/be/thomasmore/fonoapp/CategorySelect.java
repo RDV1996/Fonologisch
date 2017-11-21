@@ -28,10 +28,10 @@ public class CategorySelect extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        maakAgeLayout();
+        makeAgeLayout();
     }
 
-    private void maakAgeLayout() {
+    private void makeAgeLayout() {
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.ageSelect);
         linearLayout.removeAllViews();
 
@@ -55,7 +55,7 @@ public class CategorySelect extends AppCompatActivity {
 
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    maakCategoryLayout((Button) v);
+                    makeCategoryLayout((Button) v);
                 }
             });
 
@@ -64,7 +64,7 @@ public class CategorySelect extends AppCompatActivity {
         }
     }
 
-    private void maakCategoryLayout(View v) {
+    private void makeCategoryLayout(View v) {
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.ageSelect);
         linearLayout.removeAllViews();
 
@@ -88,7 +88,7 @@ public class CategorySelect extends AppCompatActivity {
 
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    maakLetterLayout((Button) v);
+                    makeLetterLayout((Button) v);
                 }
             });
 
@@ -97,7 +97,7 @@ public class CategorySelect extends AppCompatActivity {
         }
     }
 
-    private void maakLetterLayout(View v) {
+    private void makeLetterLayout(View v) {
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.ageSelect);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
         linearLayout.removeAllViews();
@@ -156,6 +156,10 @@ public class CategorySelect extends AppCompatActivity {
 
     private void toon(String tekst) {
         Toast.makeText(getBaseContext(), tekst, Toast.LENGTH_SHORT).show();
+    }
+    private void ExFour() {
+        Intent intent = new Intent(this, ExerciseFour.class);
+        startActivity(intent);
     }
 
     private void nextActivity() {

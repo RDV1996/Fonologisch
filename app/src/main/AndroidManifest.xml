@@ -35,6 +35,14 @@
         <activity
             android:name=".ExerciseThree"
             android:label="@string/title_activity_exercise_three"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ExerciseFour"
+            android:label="@string/title_activity_vierde_oefening"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ExerciseFive"
+            android:label="@string/title_activity_exercise_five"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
