@@ -26,7 +26,8 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:id="@+id/ageSelect">
+        android:id="@+id/ageSelect"
+        android:gravity="center">
 
     </LinearLayout>
 

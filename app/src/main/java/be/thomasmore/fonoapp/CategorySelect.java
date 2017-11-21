@@ -101,6 +101,7 @@ public class CategorySelect extends AppCompatActivity {
         linearLayout.setOrientation(LinearLayout.VERTICAL);
         linearLayout.removeAllViews();
         LinearLayout checkLayout = new LinearLayout(this);
+        checkLayout.setGravity(1);
         Drawable transparentDrawable = new ColorDrawable(Color.TRANSPARENT);
 
         for (int i = 0; i < 5; i++) {
