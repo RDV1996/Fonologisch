@@ -1,5 +1,6 @@
 package be.thomasmore.fonoapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -22,6 +23,7 @@ public class ExerciseOne extends AppCompatActivity {
     int row = 3;
     int total = column * row;
     ImageView imageViews[] = new ImageView[total];
+    int teller;
 
     List<String> filenames;
 
@@ -31,6 +33,7 @@ public class ExerciseOne extends AppCompatActivity {
         setContentView(R.layout.activity_exercise_one);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        teller=0;
 
         findPictures();
         randomPictures();
@@ -82,6 +85,8 @@ public class ExerciseOne extends AppCompatActivity {
                 imageView.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
 
+                        Intent intent = new Intent(getApplicationContext(), ExerciseTwo.class);
+                        startActivity(intent);
                     }
                 });
 
