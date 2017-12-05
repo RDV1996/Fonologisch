@@ -46,10 +46,9 @@
             />
         <activity
             android:name=".ExerciseFour"
-            android:label="@string/title_activity_vierde_oefening"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:label="@string/title_activity_exercise_four"
             android:screenOrientation="landscape"
-            />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ExerciseFive"
             android:label="@string/title_activity_exercise_five"

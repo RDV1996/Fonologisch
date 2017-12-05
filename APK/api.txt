@@ -1,0 +1,469 @@
+{ 
+  "naam": "Logopedie oefeningen", 
+  "oefeningen": [ 
+    {
+      "oefening": "BP", 
+      "zinnen": [ 
+    { 
+      "klank": "eer", 
+      "mogelijkheden": [ 
+        { 
+          "zin": "In het bos zit een ___", 
+          "letter": 1 
+        }, 
+        { 
+          "zin": "De jongen eet een ___", 
+          "letter": 2 
+        } 
+      ] 
+    }, 
+    { 
+      "klank": "ad", 
+      "mogelijkheden": [ 
+        { 
+          "zin": "Er zit heel veel schuim in het ___", 
+          "letter": 1 
+        }, 
+        { 
+          "zin": "Het meisje zit in een ___", 
+          "letter": 1 
+        }, 
+        { 
+          "zin": "De man draagt een ___", 
+          "letter": 2 
+        } 
+      ] 
+    }, 
+    { 
+      "klank": "aard", 
+      "mogelijkheden": [ 
+        { 
+          "zin": "Deze man heeft een lange ___", 
+          "letter": 1 
+        }, 
+        { 
+          "zin": "De vrouw rijdt ___", 
+          "letter": 2 
+        } 
+      ] 
+    }, 
+    {     
+      "klank": "et", 
+      "mogelijkheden": [ 
+        {     
+          "zin": "De knuffel ligt in het ___", 
+          "letter": 1 
+        }, 
+        { 
+          "zin": "De jongen ligt in zijn ___", 
+          "letter": 1 
+        }, 
+        { 
+          "zin": "De jongen  draagt een mooie ___", 
+          "letter": 2 
+        } 
+      ] 
+    }, 
+    { 
+      "klank": "il", 
+      "mogelijkheden": [ 
+        {     
+          "zin": "De jongen krijgt een prik in zijn ___", 
+          "letter": 1 
+        }, 
+        { 
+          "zin": "Ze is ziek dus ze neemt een ___", 
+          "letter": 2 
+        } 
+      ] 
+    }, 
+    { 
+     
+      "klank": "oot", 
+      "mogelijkheden": [ 
+        { 
+          "zin": "Ze varen op zee met hun ___", 
+          "letter": 1 
+        }, 
+        { 
+          "zin": "De koe heeft een ___", 
+          "letter": 2 
+        } 
+      ] 
+    }, 
+    { 
+      "klank": "ijl", 
+      "mogelijkheden": [ 
+        {       
+          "zin": "De man kapt het hout met zijn ___", 
+          "letter": 1 
+        }, 
+        { 
+          "zin": "De weg wordt aangeduid door een ___", 
+          "letter": 2 
+        } 
+      ] 
+    }, 
+    { 
+      "klank": "eter", 
+      "mogelijkheden": [ 
+        {       
+          "zin": "Het meisje voelt zich al veel ___", 
+          "letter": 1 
+        }, 
+        { 
+          "zin": "Dit meisje heeft een meter en een ___", 
+          "letter": 2 
+        } 
+      ] 
+    }, 
+    { 
+      "klank": "ak", 
+      "mogelijkheden": [ 
+        {     
+          "zin": "Ik ___ een taart ", 
+          "letter": 1 
+        }, 
+        { 
+          "zin": "Onder de kerstboom ligt een ___", 
+          "letter": 2 
+        } 
+      ] 
+    }, 
+    { 
+      "klank": "ot", 
+      "mogelijkheden": [ 
+        {     
+          "zin": "Deze man eet een ___", 
+          "letter": 2 
+        }, 
+        {     
+          "zin": "De snoepjes zitten in een ___", 
+          "letter": 2 
+        } 
+      ] 
+    } 
+    ] 
+    }, 
+   
+    { 
+      "oefening": "DT", 
+      "zinnen": [ 
+    { 
+      "klank": "ak", 
+      "mogelijkheden": [ 
+        { 
+          "zin": "Er zit een lek in het ___", 
+          "letter": 1 
+        }, 
+        { 
+          "zin": "Aan een boom hangt een ___", 
+          "letter": 2 
+        } 
+      ] 
+    }, 
+    { 
+      "klank": "as", 
+      "mogelijkheden": [ 
+        { 
+          "zin": "De man draagt een mooie ___", 
+          "letter": 1 
+        }, 
+        { 
+          "zin": "De vrouw heeft een mooie ___", 
+          "letter": 2 
+        } 
+      ] 
+    }, 
+    { 
+      "klank": "op", 
+      "mogelijkheden": [ 
+        { 
+          "zin": "Een fles heeft altijd een ___", 
+          "letter": 1 
+        }, 
+        { 
+          "zin": "We klimmen helemaal tot aan de ___", 
+          "letter": 2 
+        } 
+      ] 
+    }, 
+    {     
+      "klank": "aken", 
+      "mogelijkheden": [ 
+        {     
+          "zin": "De Sint wandelt altijd over de ___", 
+          "letter": 1 
+        }, 
+        { 
+          "zin": "De kinderen maken verschillende school ___", 
+          "letter": 2 
+        } 
+      ] 
+    }, 
+    { 
+      "klank": "eken", 
+      "mogelijkheden": [ 
+        {     
+          "zin": "Het meisje slaapt onder een ___", 
+          "letter": 1 
+        }, 
+        { 
+          "zin": "Ze is gebeten voor verschillende ___", 
+          "letter": 2 
+        } 
+      ] 
+    }, 
+    { 
+     
+      "klank": "enen", 
+      "mogelijkheden": [ 
+        { 
+          "zin": "In Denenmarken wonen ___", 
+          "letter": 1 
+        }, 
+        { 
+          "zin": "Aan een voet hebben we vijf ___", 
+          "letter": 2 
+        } 
+      ] 
+    }, 
+    { 
+      "klank": "am", 
+      "mogelijkheden": [ 
+        {       
+          "zin": "We bouwen hier een ___", 
+          "letter": 1 
+        }, 
+        { 
+          "zin": "Dit konijn is heel erg ___", 
+          "letter": 2 
+        } 
+      ] 
+    } 
+    ] 
+  },
+   
+  { 
+      "oefening": "VF", 
+      "zinnen": [ 
+    { 
+      "klank": "ier", 
+      "mogelijkheden": [ 
+        { 
+          "zin": "Hoeveel snoepjes liggen er?", 
+          "letter": 1 
+        }, 
+        { 
+          "zin": "Deze mama is heel ___", 
+          "letter": 2 
+        } 
+      ] 
+    } 
+    ] 
+    }, 
+   
+  { 
+      "oefening": "LW", 
+      "zinnen": [ 
+    { 
+      "klank": "acht", 
+      "mogelijkheden": [ 
+        { 
+          "zin": "Dit kindje ___ heel mooi", 
+          "letter": 1 
+        }, 
+        { 
+          "zin": "De politie roept ___", 
+          "letter": 2 
+        } 
+      ] 
+    }, 
+    { 
+      "klank": "eeg", 
+      "mogelijkheden": [ 
+        { 
+          "zin": "Deze pot is ___", 
+          "letter": 1 
+        } 
+      ] 
+    }, 
+    { 
+      "klank": "ang", 
+      "mogelijkheden": [ 
+        { 
+          "zin": "Dit touw is heel ___", 
+          "letter": 1 
+        }, 
+        { 
+          "zin": "Dit lichaamsdeel is de ___", 
+          "letter": 2 
+        } 
+      ] 
+    }, 
+    { 
+      "klank": "ijken", 
+      "mogelijkheden": [ 
+        { 
+          "zin": "Deze meisjes ___ op elkaar", 
+          "letter": 1 
+        } 
+      ] 
+    }, 
+    { 
+      "klank": "ijst", 
+      "mogelijkheden": [ 
+        { 
+          "zin": "Dit is een hele lange boodschappen___", 
+          "letter": 1 
+        } 
+      ] 
+    } 
+    ] 
+    }, 
+   
+  { 
+      "oefening": "RW", 
+      "zinnen": [ 
+    { 
+      "klank": "ol", 
+      "mogelijkheden": [ 
+        { 
+          "zin": "Dit is een dikke ___ papier ", 
+          "letter": 1 
+        }, 
+        { 
+          "zin": "We breien met een bol ___", 
+          "letter": 2 
+        } 
+      ] 
+    }, 
+    { 
+      "klank": "apen", 
+      "mogelijkheden": [ 
+        { 
+          "zin": "Deze kinderen zijn het vuil aan het op ___", 
+          "letter": 1 
+        }, 
+        { 
+          "zin": "Een geweer is een ___", 
+          "letter": 2 
+        } 
+      ] 
+    }, 
+    { 
+      "klank": "ei", 
+      "mogelijkheden": [ 
+        { 
+          "zin": "Deze mensen staan in een hele lange ___", 
+          "letter": 1 
+        }, 
+        { 
+          "zin": "De koeien staan allemaal in de ___", 
+          "letter": 2 
+        } 
+      ] 
+    }, 
+    {     
+      "klank": "ant", 
+      "mogelijkheden": [ 
+        {     
+          "zin": "Deze man wandelt op de ___ van de berg ", 
+          "letter": 1 
+        }, 
+        { 
+          "zin": "Deze handschoen noemen we ook wel eens een ___", 
+          "letter": 2 
+        } 
+      ] 
+    }, 
+    { 
+      "klank": "ekker", 
+      "mogelijkheden": [ 
+        {     
+          "zin": "Het meisje maakte een staart met haar ___", 
+          "letter": 1 
+        }, 
+        { 
+          "zin": "\�s Morgens worden we wakker door de ___", 
+          "letter": 2 
+        } 
+      ] 
+    } 
+    ] 
+    }, 
+   
+  { 
+      "oefening": "RJ", 
+      "zinnen": [ 
+    { 
+      "klank": "oker", 
+      "mogelijkheden": [ 
+        { 
+          "zin": "Deze man is een ___", 
+          "letter": 1 
+        }, 
+        { 
+          "zin": "Bij een pak kaarten zit altijd een ___", 
+          "letter": 2 
+        } 
+      ] 
+    }, 
+    { 
+      "klank": "odelen", 
+      "mogelijkheden": [ 
+        { 
+          "zin": "Met een slee kan je ___", 
+          "letter": 1 
+        }, 
+        { 
+          "zin": "Tijdens het wandelen in de bergen kunnen we ___", 
+          "letter": 2 
+        } 
+      ] 
+    }, 
+    { 
+      "klank": "ood", 
+      "mogelijkheden": [ 
+        { 
+          "zin": "Welke kleur heeft een tomaat?", 
+          "letter": 1 
+        } 
+      ] 
+    } 
+    ] 
+    }, 
+   
+  { 
+      "oefening": "RJ", 
+      "zinnen": [ 
+    { 
+      "klank": "ager", 
+      "mogelijkheden": [ 
+        { 
+          "zin": "De rode bal ligt ___ dan de blauwe bal.", 
+          "letter": 1 
+        }, 
+        { 
+          "zin": "De man met het geweer is een ___", 
+          "letter": 2 
+        } 
+      ] 
+    }, 
+    { 
+      "klank": "acht", 
+      "mogelijkheden": [ 
+        { 
+          "zin": "Het meisje ___", 
+          "letter": 1 
+        }, 
+        { 
+          "zin": "Deze mannen zijn op ___", 
+          "letter": 2 
+        } 
+      ] 
+    } 
+    ] 
+    } 
+  ] 
+}
