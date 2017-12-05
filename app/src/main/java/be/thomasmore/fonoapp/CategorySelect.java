@@ -16,10 +16,21 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
+import be.thomasmore.fonoapp.Classes.AgeRange;
+import be.thomasmore.fonoapp.Classes.DisorderType;
+import be.thomasmore.fonoapp.Classes.WordPairType;
+import be.thomasmore.fonoapp.test.TestAPI;
+
 public class CategorySelect extends AppCompatActivity {
 
     Button buttons[] = new Button[2];
     CheckBox checkBox[] = new CheckBox[5];
+    int selectedAge;
+    int selectedType;
+    ArrayList selectedTypeWords;
+    TestAPI testAPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,18 +38,19 @@ public class CategorySelect extends AppCompatActivity {
         setContentView(R.layout.activity_category_select);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        testAPI = new TestAPI();
         makeAgeLayout();
     }
 
     private void makeAgeLayout() {
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.ageSelect);
         linearLayout.removeAllViews();
+        ArrayList<AgeRange> ages = testAPI.getAgeRanges();
 
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < ages.size(); i++) {
             Button button = new Button(this);
-            button.setText("leeftijd");
-            button.setTag(i);
+            button.setText(ages.get(i).getMinAge() + " - " + ages.get(i).getMaxAge());
+            button.setTag(ages.get(i).getId());
             button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
             button.setGravity(Gravity.CENTER);
             button.setBackgroundResource(R.drawable.border_black);
@@ -55,6 +67,7 @@ public class CategorySelect extends AppCompatActivity {
 
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
+                    selectedAge = Integer.parseInt(v.getTag().toString());
                     makeCategoryLayout((Button) v);
                 }
             });
@@ -68,10 +81,12 @@ public class CategorySelect extends AppCompatActivity {
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.ageSelect);
         linearLayout.removeAllViews();
 
-        for (int i = 0; i < 2; i++) {
+        ArrayList<DisorderType> types = testAPI.getDisorderTypes();
+
+        for (int i = 0; i < types.size(); i++) {
             Button button = new Button(this);
-            button.setText("Soort");
-            button.setTag(i);
+            button.setText(types.get(i).getName());
+            button.setTag(types.get(i).getId());
             button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
             button.setGravity(Gravity.CENTER);
             button.setBackgroundResource(R.drawable.border_black);
@@ -88,6 +103,7 @@ public class CategorySelect extends AppCompatActivity {
 
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
+                    selectedType = Integer.parseInt(v.getTag().toString());
                     makeLetterLayout((Button) v);
                 }
             });
@@ -105,10 +121,12 @@ public class CategorySelect extends AppCompatActivity {
         checkLayout.setGravity(1);
         Drawable transparentDrawable = new ColorDrawable(Color.TRANSPARENT);
 
-        for (int i = 0; i < 5; i++) {
+        ArrayList<WordPairType> wordTypes = testAPI.getWordpairsTypeByDisorderType(selectedType);
+
+        for (int i = 0; i < wordTypes.size(); i++) {
             CheckBox check = new CheckBox(this);
-            check.setText("A");
-            check.setTag(i);
+            check.setText(wordTypes.get(i).getFrom() + " - " + wordTypes.get(i).getTo());
+            check.setTag(wordTypes.get(i).getId());
             check.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
             check.setGravity(Gravity.CENTER);
             check.setBackgroundResource(R.drawable.border_black);
@@ -128,8 +146,10 @@ public class CategorySelect extends AppCompatActivity {
                 public void onClick(View v) {
                     CheckBox box = (CheckBox) v;
                     if (box.isChecked()) {
+                        selectedTypeWords.add(Integer.parseInt(v.getTag().toString()));
                         v.setBackgroundResource(R.drawable.border_blue);
                     } else {
+                        selectedTypeWords.remove(selectedTypeWords.indexOf(Integer.parseInt(v.getTag().toString())));
                         v.setBackgroundResource(R.drawable.border_black);
                     }
 
@@ -157,6 +177,7 @@ public class CategorySelect extends AppCompatActivity {
     private void toon(String tekst) {
         Toast.makeText(getBaseContext(), tekst, Toast.LENGTH_SHORT).show();
     }
+
     private void ExFour() {
         Intent intent = new Intent(this, ExerciseFour.class);
         startActivity(intent);
@@ -166,7 +187,6 @@ public class CategorySelect extends AppCompatActivity {
         Intent intent = new Intent(this, ExerciseOne.class);
         startActivity(intent);
     }
-
 
 
 }
