@@ -23,6 +23,9 @@ public class Word {
         this.sentenceSound = sentenceSound;
     }
 
+    public Word() {
+    }
+
     public int getId() {
         return id;
     }
