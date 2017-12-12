@@ -7,9 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,23 +45,49 @@ public class ExerciseFour extends AppCompatActivity {
         score = 0;
         Collections.shuffle(wordPairs);
         setupQuestion();
+        Button button = (Button) findViewById(R.id.volgendeEx4);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                volgende(v);
+            }
+        });
     }
     public void setupQuestion(){
-        Word rightword = testAPI.getWordbyId(wordPairs.get(counter).getRightWordId());
-        Word wrongword = testAPI.getWordbyId(wordPairs.get(counter).getWrongWordId());
+        Button button = (Button) findViewById(R.id.volgendeEx4);
+        button.setVisibility(View.GONE);
+        Word rightword;
+        Word wrongword;
+        if(Math.random() < 0.5) {
+            rightword = testAPI.getWordbyId(wordPairs.get(counter).getRightWordId());
+            wrongword = testAPI.getWordbyId(wordPairs.get(counter).getWrongWordId());
+        }
+        else{
+            wrongword = testAPI.getWordbyId(wordPairs.get(counter).getRightWordId());
+            rightword = testAPI.getWordbyId(wordPairs.get(counter).getWrongWordId());
+        }
+
 
         if(Math.random() < 0.5) {
             leftButton.setText(rightword.getWord());
+            leftButton.setTag(rightword.getWord());
             rightButton.setText(wrongword.getWord());
+            rightButton.setTag(wrongword.getWord());
         }
         else{
             rightButton.setText(wrongword.getWord());
             leftButton.setText(rightword.getWord());
+            rightButton.setTag(wrongword.getWord());
+            leftButton.setTag(rightword.getWord());
         }
 
-        text.setText(wrongword.getSentence());
-        img.setImageResource(R.drawable.img_baard);
+        text.setText(rightword.getSentence());
+        img.setImageResource(getResources().getIdentifier(rightword.getMainImg(), "drawable", getPackageName()));
         correct = rightword.getWord();
+        leftButton.setEnabled(true);
+        leftButton.setBackgroundResource(R.drawable.border_black);
+        rightButton.setEnabled(true);
+        rightButton.setBackgroundResource(R.drawable.border_black);
+
     }
 
     public void antwoord(View v){
@@ -74,21 +98,14 @@ public class ExerciseFour extends AppCompatActivity {
         String test = v.getTag() + "";
         if(test.equals(correct)){
             score++;
-            Toast.makeText(getBaseContext(), score, Toast.LENGTH_SHORT).show();
+
             right(v);
         }
         else{
             wrong(v);
         }
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.exFourlayout);
-        Button button = new Button(this);
-        button.setText("Volgende");
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                volgende();
-            }
-        });
-        linearLayout.addView(button);
+        Button button = (Button) findViewById(R.id.volgendeEx4);
+        button.setVisibility(View.VISIBLE);
     }
 
     public void right(View v) {
@@ -99,7 +116,7 @@ public class ExerciseFour extends AppCompatActivity {
         v.setBackgroundResource(R.drawable.border_red);
     }
 
-    public void volgende(){
+    public void volgende(View v){
         counter++;
         if(counter == wordPairs.size()) {
             Intent intent = new Intent(this, ExerciseFive.class);
@@ -107,6 +124,7 @@ public class ExerciseFour extends AppCompatActivity {
         }
         else{
             setupQuestion();
+
         }
     }
 

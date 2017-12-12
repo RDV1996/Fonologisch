@@ -29,7 +29,7 @@ public class CategorySelect extends AppCompatActivity {
     CheckBox checkBox[] = new CheckBox[5];
     int selectedAge;
     int selectedType;
-    ArrayList selectedTypeWords;
+    ArrayList<Integer> selectedTypeWords;
     TestAPI testAPI;
 
     @Override
@@ -40,6 +40,7 @@ public class CategorySelect extends AppCompatActivity {
         setSupportActionBar(toolbar);
         testAPI = new TestAPI();
         makeAgeLayout();
+        selectedTypeWords = new ArrayList<>();
     }
 
     private void makeAgeLayout() {
@@ -146,10 +147,10 @@ public class CategorySelect extends AppCompatActivity {
                 public void onClick(View v) {
                     CheckBox box = (CheckBox) v;
                     if (box.isChecked()) {
-                        selectedTypeWords.add(Integer.parseInt(v.getTag().toString()));
+                        selectedTypeWords.add(new Integer(Integer.parseInt(v.getTag().toString())));
                         v.setBackgroundResource(R.drawable.border_blue);
                     } else {
-                        selectedTypeWords.remove(selectedTypeWords.indexOf(Integer.parseInt(v.getTag().toString())));
+                        selectedTypeWords.remove(selectedTypeWords.indexOf(new Integer(Integer.parseInt(v.getTag().toString()))));
                         v.setBackgroundResource(R.drawable.border_black);
                     }
 

@@ -74,5 +74,10 @@
                 android:background="@drawable/border_black"/>
 
         </LinearLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="volgende"
+            android:id="@+id/volgendeEx4"/>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
