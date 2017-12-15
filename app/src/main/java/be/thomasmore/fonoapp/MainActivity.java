@@ -7,8 +7,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import be.thomasmore.fonoapp.Classes.User;
+import be.thomasmore.fonoapp.rest.APIClient;
+import be.thomasmore.fonoapp.rest.APIInterface;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
+    User user;
+    APIInterface apiInetface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,11 +27,47 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        apiInetface = APIClient.getClient().create(APIInterface.class);
     }
 
     public void aanmelden(View v){
-        Intent intent = new Intent(this, CategorySelect.class);
-        startActivity(intent);
+        TextView textLogin = (TextView) findViewById(R.id.login);
+        TextView textPassword = (TextView) findViewById(R.id.password);
+        String login =textLogin.getText().toString();
+        String password = textPassword.getText().toString();
+        user = new User(login, password);
+        if(!login.isEmpty() && !password.isEmpty()) {
+            Call<User> call = apiInetface.login(user);
+            call.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    if (response.isSuccessful()) {
+                        user = response.body();
+                        Toast.makeText(getApplicationContext(), "Logged in as " + user.getLogin(),
+                                Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(getApplicationContext(), CategorySelect.class);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(getApplicationContext(), response.message(),
+                                Toast.LENGTH_LONG).show();
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+                    call.cancel();
+                    Toast.makeText(getApplicationContext(), t.getMessage(),
+                            Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "Vul je gegevens in",
+                    Toast.LENGTH_LONG).show();
+        }
+
     }
 
     @Override
