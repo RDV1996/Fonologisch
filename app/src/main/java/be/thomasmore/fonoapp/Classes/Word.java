@@ -1,19 +1,28 @@
 package be.thomasmore.fonoapp.Classes;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by robyd on 5/12/2017.
  */
 
 public class Word {
-    private int id;
+    @SerializedName("_id")
+    private String id;
+    @SerializedName("word")
     private String word;
+    @SerializedName("mainImg")
     private String mainImg;
+    @SerializedName("subImg")
     private String subImg;
+    @SerializedName("wordsound")
     private String Wordsound;
+    @SerializedName("sentence")
     private String sentence;
+    @SerializedName("sentenceSound")
     private String sentenceSound;
 
-    public Word(int id, String word, String mainImg, String subImg, String wordsound, String sentence, String sentenceSound) {
+    public Word(String id, String word, String mainImg, String subImg, String wordsound, String sentence, String sentenceSound) {
         this.id = id;
         this.word = word;
         this.mainImg = mainImg;
@@ -23,11 +32,14 @@ public class Word {
         this.sentenceSound = sentenceSound;
     }
 
-    public int getId() {
+    public Word() {
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

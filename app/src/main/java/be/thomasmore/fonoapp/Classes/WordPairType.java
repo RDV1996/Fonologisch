@@ -1,27 +1,33 @@
 package be.thomasmore.fonoapp.Classes;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by robyd on 5/12/2017.
  */
 
 public class WordPairType {
-    private int id;
+    @SerializedName("_id")
+    private String id;
+    @SerializedName("From")
     private String From;
+    @SerializedName("To")
     private String To;
-    private int DisorderTypeId;
+    @SerializedName("DisorderType")
+    private String DisorderTypeId;
 
-    public WordPairType(int id, String from, String to, int disorderTypeId) {
+    public WordPairType(String id, String from, String to, String disorderTypeId) {
         this.id = id;
         From = from;
         To = to;
         DisorderTypeId = disorderTypeId;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -41,11 +47,11 @@ public class WordPairType {
         To = to;
     }
 
-    public int getDisorderTypeId() {
+    public String getDisorderTypeId() {
         return DisorderTypeId;
     }
 
-    public void setDisorderTypeId(int disorderTypeId) {
+    public void setDisorderTypeId(String disorderTypeId) {
         DisorderTypeId = disorderTypeId;
     }
 }
