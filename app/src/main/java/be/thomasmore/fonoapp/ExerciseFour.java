@@ -40,7 +40,7 @@ public class ExerciseFour extends AppCompatActivity {
         img = (ImageView) findViewById(R.id.imgEx4);
 
         testAPI = new TestAPI();
-        wordPairs = testAPI.getWordpairsByWPTandAge(1,1);
+        wordPairs = testAPI.getWordpairsByWPTandAge("1","1");
         counter =0;
         score = 0;
         Collections.shuffle(wordPairs);

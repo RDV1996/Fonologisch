@@ -1,25 +1,33 @@
 package be.thomasmore.fonoapp.Classes;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by robyd on 5/12/2017.
  */
 
 public class AgeRange {
-    private int id;
+    @SerializedName("_id")
+    private String id;
+    @SerializedName("minAge")
     private int minAge;
+    @SerializedName("maxAge")
     private int maxAge;
 
-    public AgeRange(int id, int minAge, int maxAge) {
+    public AgeRange(String id, int minAge, int maxAge) {
         this.id = id;
         this.minAge = minAge;
         this.maxAge = maxAge;
     }
 
-    public int getId() {
+    public AgeRange() {
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

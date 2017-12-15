@@ -1,17 +1,24 @@
 package be.thomasmore.fonoapp.Classes;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by robyd on 5/12/2017.
  */
 
 public class WordPair {
-    private int id;
-    private int rightWordId;
-    private int wrongWordId;
-    private int ageRangeId;
-    private int wordPairTypeId;
+    @SerializedName("_id")
+    private String id;
+    @SerializedName("rightWord")
+    private String rightWordId;
+    @SerializedName("wrongWord")
+    private String wrongWordId;
+    @SerializedName("ageRange")
+    private String ageRangeId;
+    @SerializedName("wordPairType")
+    private String wordPairTypeId;
 
-    public WordPair(int id, int rightWordId, int wrongWordId, int ageRangeId, int wordPairTypeId) {
+    public WordPair(String id, String rightWordId, String wrongWordId, String ageRangeId, String wordPairTypeId) {
         this.id = id;
         this.rightWordId = rightWordId;
         this.wrongWordId = wrongWordId;
@@ -19,43 +26,43 @@ public class WordPair {
         this.wordPairTypeId = wordPairTypeId;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public int getRightWordId() {
+    public String getRightWordId() {
         return rightWordId;
     }
 
-    public void setRightWordId(int rightWordId) {
+    public void setRightWordId(String rightWordId) {
         this.rightWordId = rightWordId;
     }
 
-    public int getWrongWordId() {
+    public String getWrongWordId() {
         return wrongWordId;
     }
 
-    public void setWrongWordId(int wrongWordId) {
+    public void setWrongWordId(String wrongWordId) {
         this.wrongWordId = wrongWordId;
     }
 
-    public int getAgeRangeId() {
+    public String getAgeRangeId() {
         return ageRangeId;
     }
 
-    public void setAgeRangeId(int ageRangeId) {
+    public void setAgeRangeId(String ageRangeId) {
         this.ageRangeId = ageRangeId;
     }
 
-    public int getWordPairTypeId() {
+    public String getWordPairTypeId() {
         return wordPairTypeId;
     }
 
-    public void setWordPairTypeId(int wordPairTypeId) {
+    public void setWordPairTypeId(String wordPairTypeId) {
         this.wordPairTypeId = wordPairTypeId;
     }
 }
