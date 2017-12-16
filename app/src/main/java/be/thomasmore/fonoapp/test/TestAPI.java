@@ -27,7 +27,7 @@ public class TestAPI {
         this.wordPairTypes = new ArrayList<>();
         this.words.add(new Word("1", "Beer", "img_beer", "img_beer2", "beer.m4a", "In dit bos zit een...", "beer_zin.m4a"));
         this.words.add(new Word("2", "Peer", "img_peer", "img_peer2", "peer.m4a", "De jonge eet zijn...", "peer_zin.m4a"));
-        this.words.add(new Word("3", "Baard", "img_baard", "img_baard2", "baard.m4a", "Deze man heeft een lange...", "baard_zin.m4a"));
+        this.words.add(new Word("3", "Baard", "main_baard", "img_baard2", "baard.m4a", "Deze man heeft een lange...", "baard_zin.m4a"));
         this.words.add(new Word("4", "Paard", "img_paard", "img_paard2", "paard.m4a", "De vrouw rijd een...", "paard_zin.m4a"));
         this.words.add(new Word("5", "Bed", "img_bed", "img_bed2", "bed.m4a", "de knuffel ligt in het ...", "bed_zin.m4a"));
         this.words.add(new Word("6", "pet", "img_pet", "img_pet2", "pet.m4a", "De jonge draagt een mooie...", "pet_zin.m4a"));
