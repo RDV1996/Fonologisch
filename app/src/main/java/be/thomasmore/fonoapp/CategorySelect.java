@@ -62,9 +62,6 @@ public class CategorySelect extends AppCompatActivity {
             public void onResponse(Call<ArrayList<AgeRange>> call, Response<ArrayList<AgeRange>> response) {
                 if (response.isSuccessful()) {
                     ages = response.body();
-                    Toast.makeText(getApplicationContext(), "succesvol age",
-                            Toast.LENGTH_LONG).show();
-
                     LinearLayout linearLayout = (LinearLayout) findViewById(R.id.ageSelect);
                     linearLayout.removeAllViews();
                     for (int i = 0; i < ages.size(); i++) {
@@ -174,8 +171,6 @@ public class CategorySelect extends AppCompatActivity {
             public void onResponse(Call<ArrayList<WordPairType>> call, Response<ArrayList<WordPairType>> response) {
                 if (response.isSuccessful()) {
                     wordPairTypes = response.body();
-                    Toast.makeText(getApplicationContext(), "succesvol types",
-                            Toast.LENGTH_LONG).show();
 
                     LinearLayout linearLayout = (LinearLayout) findViewById(R.id.ageSelect);
                     linearLayout.removeAllViews();
@@ -228,12 +223,10 @@ public class CategorySelect extends AppCompatActivity {
 
     }
 
-    private void toon(String tekst) {
-        Toast.makeText(getBaseContext(), tekst, Toast.LENGTH_SHORT).show();
-    }
-
 
     private void GetWords() {
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.ageSelect);
+        linearLayout.removeAllViews();
         Call<ArrayList<WordPair>> call = apiInetface.getWordPaires(selectedAge, selectedTypeWord);
         call.enqueue(new Callback<ArrayList<WordPair>>() {
             @Override

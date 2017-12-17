@@ -1,11 +1,15 @@
 package be.thomasmore.fonoapp;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -31,9 +35,11 @@ public class ExerciseFive extends AppCompatActivity {
     TextView view2;
     TextView TopText;
     int player;
-    LinearLayout game;
-    LinearLayout score;
-
+    Button but1;
+    Button but2;
+    int teller;
+    int fouten;
+    int counter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,17 +57,20 @@ public class ExerciseFive extends AppCompatActivity {
         view1 = (TextView) findViewById(R.id.Ex5S1);
         view2 = (TextView) findViewById(R.id.Ex5S2);
         TopText = (TextView) findViewById(R.id.TopText);
+        counter = 0;
 
-        game = (LinearLayout) findViewById(R.id.exFiveGame);
-        score = (LinearLayout) findViewById(R.id.exFiveScore);
-
-
-
+        but1 = (Button) findViewById(R.id.score1);
+        but2 = (Button) findViewById(R.id.score2);
+        Bundle bundle = getIntent().getExtras();
+        assert bundle != null;
+        teller = bundle.getInt("teller");
+        fouten = bundle.getInt("fouten");
         makeGame();
     }
 
     public void makeGame() {
-        score.setVisibility(View.INVISIBLE);
+        but1.setEnabled(false);
+        but2.setEnabled(false);
         Collections.shuffle(Global.words);
         int size = Global.words.size();
 
@@ -91,7 +100,7 @@ public class ExerciseFive extends AppCompatActivity {
                 break;
             default:
                 row = 3;
-                column = 4;
+                column = 3;
                 break;
         }
 
@@ -121,9 +130,11 @@ public class ExerciseFive extends AppCompatActivity {
 
                 imageView.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        imageClick((ImageView) v);
-                        imageView.setImageResource(getResources().getIdentifier(Global.words.get(Integer.parseInt(v.getTag().toString())).getMainImg(), "drawable", getPackageName()));
-                        scorePhase();
+                        if (Integer.parseInt(v.getTag().toString()) != -1) {
+                            imageView.setImageResource(getResources().getIdentifier(Global.words.get(Integer.parseInt(v.getTag().toString())).getMainImg(), "drawable", getPackageName()));
+                            scorePhase();
+                            v.setTag(-1);
+                        }
                     }
                 });
 
@@ -136,39 +147,82 @@ public class ExerciseFive extends AppCompatActivity {
 
     }
 
-    public void imageClick(View v) {
-        show(v.getTag() + "");
-    }
-
     private void show(String tekst) {
         Toast.makeText(getBaseContext(), tekst, Toast.LENGTH_SHORT).show();
     }
 
     public void scorePhase() {
-        game.setVisibility(View.INVISIBLE);
-        score.setVisibility(View.VISIBLE);
-        TopText.setText("Had speler " +player+" het juist?");
+        for (int i = 0; i < total; i++) {
+            pictures.get(i).setEnabled(false);
+        }
+        but1.setEnabled(true);
+        but2.setEnabled(true);
+        TopText.setText("Had speler " + player + " het juist?");
     }
 
-    private void exFiveAntwoord(View v){
-        if(Integer.parseInt(v.getTag().toString()) == 1){
-            if(player == 1){
+    public void exFiveAntwoord(View v) {
+        if (Integer.parseInt(v.getTag().toString()) == 1) {
+            if (player == 1) {
                 score1++;
-                player =2;
-            }
-            else {
-                score2 ++;
+                teller++;
+                player = 2;
+            } else {
+                score2++;
                 player = 1;
             }
+        } else {
+            if (player == 1) {
+                fouten++;
+            }
         }
-
+        view1.setText(score1 + "");
+        view2.setText(score2 + "");
         gamePhase();
     }
 
-    private void gamePhase(){
-        game.setVisibility(View.VISIBLE);
-        score.setVisibility(View.INVISIBLE);
+    private void gamePhase() {
+        for (int i = 0; i < total; i++) {
+            if (Integer.parseInt(pictures.get(i).getTag().toString()) != -1)
+                pictures.get(i).setEnabled(true);
+        }
+        counter++;
+        but1.setEnabled(false);
+        but2.setEnabled(false);
         TopText.setText("het is de beurt aan speler " + player);
+        if (counter == total) {
+            onCompletion();
+        }
+    }
+
+    public void onCompletion() {
+        String winnaar = "Winnaar van oefeling 5 is: ";
+        if (score1 > score2) {
+            winnaar += "Speler 1";
+        } else if (score1 < score2) {
+            winnaar += "Speler 2";
+        } else {
+            winnaar = "Gelijkspel voor oefening 5!";
+        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Winnaar van Oef 5: " + winnaar + "\nTotale Fouten: " + String.valueOf(fouten))
+                .setTitle(R.string.title_activity_exercise_five)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        nextActivity();
+                    }
+                })
+                .show();
+    }
+
+    // Maakt de SoundPool leeg
+    public void nextActivity() {
+        Bundle bundle = new Bundle();
+        bundle.putInt("teller", teller);
+        bundle.putInt("fouten", fouten);
+        Intent intent = new Intent(this, Results.class);
+        intent.putExtras(bundle);
+
+        startActivity(intent);
     }
 
 }

@@ -8,10 +8,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import be.thomasmore.fonoapp.Classes.User;
 import be.thomasmore.fonoapp.rest.APIClient;
 import be.thomasmore.fonoapp.rest.APIInterface;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     User user;
@@ -33,15 +37,13 @@ public class MainActivity extends AppCompatActivity {
         String login =textLogin.getText().toString();
         String password = textPassword.getText().toString();
         user = new User(login, password);
-        /*if(!login.isEmpty() && !password.isEmpty()) {
+        if(!login.isEmpty() && !password.isEmpty()) {
             Call<User> call = apiInetface.login(user);
             call.enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
                     if (response.isSuccessful()) {
                         user = response.body();
-                        Toast.makeText(getApplicationContext(), "Logged in as " + user.getLogin(),
-                                Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(getApplicationContext(), CategorySelect.class);
                         startActivity(intent);
                     } else {
@@ -62,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         else {
             Toast.makeText(getApplicationContext(), "Vul je gegevens in",
                     Toast.LENGTH_LONG).show();
-        }*/
+        }
 
         Intent intent = new Intent(getApplicationContext(), CategorySelect.class);
         startActivity(intent);
