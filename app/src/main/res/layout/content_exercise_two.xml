@@ -22,7 +22,6 @@
             <ImageView
                 android:id="@+id/left"
                 android:contentDescription="@string/cd_exercise_two_left"
-                android:src="@drawable/img_beer"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -39,7 +38,6 @@
             <ImageView
                 android:id="@+id/right"
                 android:contentDescription="@string/cd_exercise_two_right"
-                android:src="@drawable/img_peer"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"

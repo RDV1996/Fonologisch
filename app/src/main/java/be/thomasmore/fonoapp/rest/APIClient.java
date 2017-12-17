@@ -14,7 +14,7 @@ public class APIClient {
 
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("https://fonoappapi.herokuapp.com/")
+                .baseUrl("https://fonoappapi.herokuapp.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
