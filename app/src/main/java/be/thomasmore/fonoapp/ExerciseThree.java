@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,11 +21,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
+
+import be.thomasmore.fonoapp.Classes.Word;
 
 public class ExerciseThree extends AppCompatActivity {
 
@@ -37,13 +37,14 @@ public class ExerciseThree extends AppCompatActivity {
     int teller;
     int fouten;
 
-    int audioTeller = 0;
-    List<String> imageFiles;
-    List<String> audioFiles;
-
     SoundPool soundPool;
-    int[] sm = new int[4];
+    int[] sm = new int[5];
     AudioManager amg;
+
+    Word leftBottomWord;
+    Word leftTopWord;
+    Word rightBottomWord;
+    Word rightTopWord;
 
     List<String> imageViewFilesString = Arrays.asList("leftTop", "leftBottom", "rightTop", "rightBottom");
 
@@ -62,37 +63,36 @@ public class ExerciseThree extends AppCompatActivity {
         TextView scoreView = (TextView) findViewById(R.id.score);
         scoreView.setText(String.valueOf(teller));
 
-        findMedia();
+        initWord();
         initSound();
-
-        numbers();
 
         findViewById(R.id.leftTop).setOnDragListener(new ExerciseThree.MyDragListener());
         findViewById(R.id.rightTop).setOnDragListener(new ExerciseThree.MyDragListener());
         findViewById(R.id.leftBottom).setOnDragListener(new ExerciseThree.MyDragListener());
         findViewById(R.id.rightBottom).setOnDragListener(new ExerciseThree.MyDragListener());
+
+        final MediaPlayer playSound = MediaPlayer.create(this,R.raw.instructie3);
+        playSound.setOnCompletionListener(new MediaPlayer.OnCompletionListener(){
+            @Override
+            public void onCompletion(MediaPlayer player) {
+                numbers();
+            }
+        });
+        playSound.start();
     }
 
-    private void findMedia() {
-        imageFiles = new ArrayList<>();
-        audioFiles = new ArrayList<>();
-
-        Collections.shuffle(imageViewFilesString);
-
-        Field[] raws = be.thomasmore.fonoapp.R.raw.class.getFields();
-        Field[] drawables = be.thomasmore.fonoapp.R.drawable.class.getFields();
-        for (Field f : raws) {
-            audioFiles.add(f.getName());
-
-            for (Field g : drawables) {
-                if (g.getName().startsWith("img_" + audioFiles.get(audioTeller))) {
-                    imageFiles.add(g.getName());
-                }
-            }
-            audioTeller++;
+    private void initWord() {
+        if (Math.random() < 0.5) {
+            leftBottomWord = Global.getWordById(Global.wordPairs.get(0).getRightWordId());
+            leftTopWord = Global.getWordById(Global.wordPairs.get(1).getRightWordId());
+            rightBottomWord = Global.getWordById(Global.wordPairs.get(0).getWrongWordId());
+            rightTopWord = Global.getWordById(Global.wordPairs.get(1).getWrongWordId());
+        } else {
+            leftBottomWord = Global.getWordById(Global.wordPairs.get(0).getRightWordId());
+            leftTopWord = Global.getWordById(Global.wordPairs.get(1).getRightWordId());
+            rightBottomWord = Global.getWordById(Global.wordPairs.get(0).getWrongWordId());
+            rightTopWord = Global.getWordById(Global.wordPairs.get(1).getWrongWordId());
         }
-        audioFiles.remove(0);
-        audioFiles.remove(audioFiles.size() - 1);
     }
 
     private void initSound() {
@@ -105,9 +105,10 @@ public class ExerciseThree extends AppCompatActivity {
             soundPool = new SoundPool(maxStreams, AudioManager.STREAM_MUSIC, 0);
         }
 
-        for (int i = 0; i < 4; i++) {
-            sm[i] = soundPool.load(this, getResources().getIdentifier(audioFiles.get(i), "raw", getPackageName()), 1);
-        }
+        sm[0] = soundPool.load(this, getResources().getIdentifier(leftBottomWord.getWordsound(), "raw", getPackageName()), 1);
+        sm[1] = soundPool.load(this, getResources().getIdentifier(rightBottomWord.getWordsound(), "raw", getPackageName()), 1);
+        sm[2] = soundPool.load(this, getResources().getIdentifier(leftTopWord.getWordsound(), "raw", getPackageName()), 1);
+        sm[3] = soundPool.load(this, getResources().getIdentifier(rightTopWord.getWordsound(), "raw", getPackageName()), 1);
 
         amg = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
     }
@@ -144,10 +145,23 @@ public class ExerciseThree extends AppCompatActivity {
 
                 String imageFile = imageViewFilesString.get(cijfers - 1);
                 ImageView imageView = (ImageView) findViewById(getResources().getIdentifier(imageFile, "id", getPackageName()));
-                imageView.setImageResource(getResources().getIdentifier(imageFiles.get(imageViewFilesString.indexOf(imageFile)), "drawable", getPackageName()));
+                if (cijfers == 1) {
+                    imageView.setImageResource(getResources().getIdentifier(leftBottomWord.getMainImg(), "drawable", getPackageName()));
+                    textView.setBackgroundResource(R.drawable.border_green);
+                } else if (cijfers == 2) {
+                    imageView.setImageResource(getResources().getIdentifier(rightBottomWord.getMainImg(), "drawable", getPackageName()));
+                    textView.setBackgroundResource(R.drawable.border_black);
+                } else if (cijfers == 3) {
+                    imageView.setImageResource(getResources().getIdentifier(leftTopWord.getMainImg(), "drawable", getPackageName()));
+                    textView.setBackgroundResource(R.drawable.border_blue);
+                } else if (cijfers == 4) {
+                    imageView.setImageResource(getResources().getIdentifier(rightTopWord.getMainImg(), "drawable", getPackageName()));
+                    textView.setBackgroundResource(R.drawable.border_red);
+                }
+
                 imageView.setTag(cijfers - 1);
 
-                textView.setText(String.valueOf(cijfers));
+
                 textView.setTag(cijfers - 1);
 
                 textView.setGravity(Gravity.CENTER);
@@ -175,9 +189,26 @@ public class ExerciseThree extends AppCompatActivity {
     }
 
     // Kent punten toe bij een juiste sleepactie.
-    private void correctDrag(View view, TextView scoreView) {
+    private void correctDrag(String tag, View view, TextView scoreView) {
         view.setOnTouchListener(null);
-        view.setBackgroundResource(getResources().getIdentifier(imageFiles.get((Integer)view.getTag()), "drawable", getPackageName()));
+
+        switch (tag) {
+            case "0":
+                view.setBackgroundResource(getResources().getIdentifier(leftBottomWord.getMainImg(), "drawable", getPackageName()));
+                break;
+            case "1":
+                view.setBackgroundResource(getResources().getIdentifier(rightBottomWord.getMainImg(), "drawable", getPackageName()));
+                break;
+            case "2":
+                view.setBackgroundResource(getResources().getIdentifier(leftTopWord.getMainImg(), "drawable", getPackageName()));
+                break;
+            case "3":
+                view.setBackgroundResource(getResources().getIdentifier(rightTopWord.getMainImg(), "drawable", getPackageName()));
+                break;
+            default:
+                break;
+        }
+
         teller++;
         scoreView.setText(String.valueOf(teller));
         if (teller == 20) {
@@ -211,7 +242,7 @@ public class ExerciseThree extends AppCompatActivity {
                     String tagTarget = dropTarget.getTag() + "";
 
                     if (tag.equals(tagTarget)) {
-                        correctDrag(view, scoreView);
+                        correctDrag(tagTarget, view, scoreView);
                     } else {
                         fouten++;
                     }
