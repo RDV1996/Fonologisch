@@ -9,11 +9,11 @@ import com.google.gson.annotations.SerializedName;
 public class WordPairType {
     @SerializedName("_id")
     private String id;
-    @SerializedName("From")
+    @SerializedName("from")
     private String From;
-    @SerializedName("To")
+    @SerializedName("to")
     private String To;
-    @SerializedName("DisorderType")
+    @SerializedName("disorderType")
     private String DisorderTypeId;
 
     public WordPairType(String id, String from, String to, String disorderTypeId) {

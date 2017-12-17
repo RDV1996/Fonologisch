@@ -15,7 +15,7 @@ public class Word {
     private String mainImg;
     @SerializedName("subImg")
     private String subImg;
-    @SerializedName("wordsound")
+    @SerializedName("wordSound")
     private String Wordsound;
     @SerializedName("sentence")
     private String sentence;

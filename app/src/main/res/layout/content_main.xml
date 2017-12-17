@@ -50,10 +50,11 @@
                 android:text="Wachtwoord: "
                 android:textSize="20sp"/>
             <EditText
+                android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:id="@+id/wachtwoord"/>
+                android:id="@+id/password"/>
         </LinearLayout>
         <Button
             android:layout_width="match_parent"

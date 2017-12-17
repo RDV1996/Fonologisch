@@ -1,9 +1,6 @@
 package be.thomasmore.fonoapp;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +17,8 @@ import java.util.ArrayList;
 
 import be.thomasmore.fonoapp.Classes.AgeRange;
 import be.thomasmore.fonoapp.Classes.DisorderType;
+import be.thomasmore.fonoapp.Classes.Word;
+import be.thomasmore.fonoapp.Classes.WordPair;
 import be.thomasmore.fonoapp.Classes.WordPairType;
 import be.thomasmore.fonoapp.rest.APIClient;
 import be.thomasmore.fonoapp.rest.APIInterface;
@@ -28,17 +27,21 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static be.thomasmore.fonoapp.Global.words;
+
 public class CategorySelect extends AppCompatActivity {
 
     Button buttons[] = new Button[2];
     CheckBox checkBox[] = new CheckBox[5];
     String selectedAge;
     String selectedType;
-    ArrayList<String> selectedTypeWords;
+    String selectedTypeWord;
     TestAPI testAPI;
     APIInterface apiInetface;
     ArrayList<AgeRange> ages;
     ArrayList<DisorderType> disorderTypes;
+    ArrayList<WordPairType> wordPairTypes;
+    ArrayList<WordPair> wordPairs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +49,9 @@ public class CategorySelect extends AppCompatActivity {
         setContentView(R.layout.activity_category_select);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        testAPI = new TestAPI();
         apiInetface = APIClient.getClient().create(APIInterface.class);
         makeAgeLayout();
-        selectedTypeWords = new ArrayList<>();
+        Global.words = new ArrayList<>();
 
     }
 
@@ -120,12 +122,10 @@ public class CategorySelect extends AppCompatActivity {
                     LinearLayout linearLayout = (LinearLayout) findViewById(R.id.ageSelect);
                     linearLayout.removeAllViews();
 
-                    ArrayList<DisorderType> types = testAPI.getDisorderTypes();
-
-                    for (int i = 0; i < types.size(); i++) {
+                    for (int i = 0; i < disorderTypes.size(); i++) {
                         Button button = new Button(getApplicationContext());
-                        button.setText(types.get(i).getName());
-                        button.setTag(types.get(i).getId());
+                        button.setText(disorderTypes.get(i).getName());
+                        button.setTag(disorderTypes.get(i).getId());
                         button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
                         button.setGravity(Gravity.CENTER);
                         button.setBackgroundResource(R.drawable.border_black);
@@ -168,78 +168,129 @@ public class CategorySelect extends AppCompatActivity {
     }
 
     private void makeLetterLayout(View v) {
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.ageSelect);
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
-        linearLayout.removeAllViews();
-        LinearLayout checkLayout = new LinearLayout(this);
-        checkLayout.setGravity(1);
-        Drawable transparentDrawable = new ColorDrawable(Color.TRANSPARENT);
+        Call<ArrayList<WordPairType>> call = apiInetface.getWordPairTypes();
+        call.enqueue(new Callback<ArrayList<WordPairType>>() {
+            @Override
+            public void onResponse(Call<ArrayList<WordPairType>> call, Response<ArrayList<WordPairType>> response) {
+                if (response.isSuccessful()) {
+                    wordPairTypes = response.body();
+                    Toast.makeText(getApplicationContext(), "succesvol types",
+                            Toast.LENGTH_LONG).show();
 
-        ArrayList<WordPairType> wordTypes = testAPI.getWordpairsTypeByDisorderType(selectedType);
+                    LinearLayout linearLayout = (LinearLayout) findViewById(R.id.ageSelect);
+                    linearLayout.removeAllViews();
+                    for (int i = 0; i < wordPairTypes.size(); i++) {
+                        Button button = new Button(getApplicationContext());
+                        button.setText(wordPairTypes.get(i).getFrom() + " -> " + wordPairTypes.get(i).getTo());
+                        button.setTag(wordPairTypes.get(i).getId());
+                        button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
+                        button.setGravity(Gravity.CENTER);
+                        button.setBackgroundResource(R.drawable.border_black);
 
-        for (int i = 0; i < wordTypes.size(); i++) {
-            CheckBox check = new CheckBox(this);
-            check.setText(wordTypes.get(i).getFrom() + " - " + wordTypes.get(i).getTo());
-            check.setTag(wordTypes.get(i).getId());
-            check.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
-            check.setGravity(Gravity.CENTER);
-            check.setBackgroundResource(R.drawable.border_black);
-            check.setButtonDrawable(transparentDrawable);
+                        LinearLayout.LayoutParams layoutTextParams =
+                                new LinearLayout.LayoutParams(
+                                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                                        ViewGroup.LayoutParams.WRAP_CONTENT);
+                        layoutTextParams.leftMargin = 10;
+                        layoutTextParams.rightMargin = 10;
+                        layoutTextParams.height = 400;
+                        layoutTextParams.width = 400;
+                        button.setLayoutParams(layoutTextParams);
 
-            LinearLayout.LayoutParams layoutTextParams =
-                    new LinearLayout.LayoutParams(
-                            ViewGroup.LayoutParams.WRAP_CONTENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT);
-            layoutTextParams.leftMargin = 10;
-            layoutTextParams.rightMargin = 10;
-            layoutTextParams.height = 200;
-            layoutTextParams.width = 200;
-            check.setLayoutParams(layoutTextParams);
+                        button.setOnClickListener(new View.OnClickListener() {
+                            public void onClick(View v) {
+                                selectedTypeWord = v.getTag().toString();
+                                GetWords();
+                            }
+                        });
 
-            check.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    CheckBox box = (CheckBox) v;
-                    if (box.isChecked()) {
-                        selectedTypeWords.add(v.getTag().toString());
-                        v.setBackgroundResource(R.drawable.border_blue);
-                    } else {
-                        selectedTypeWords.remove(selectedTypeWords.indexOf(new Integer(Integer.parseInt(v.getTag().toString()))));
-                        v.setBackgroundResource(R.drawable.border_black);
+                        buttons[i] = button;
+                        linearLayout.addView(button);
                     }
 
-                }
-            });
+                } else
 
-            checkBox[i] = check;
-            checkLayout.addView(check);
-        }
-        Button button = new Button(this);
-        button.setText("start spel");
-        button.setTag("start");
-        button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
-        button.setGravity(Gravity.CENTER);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                nextActivity();
+                {
+                    Toast.makeText(getApplicationContext(), response.message(),
+                            Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<WordPairType>> call, Throwable t) {
+                call.cancel();
+                Toast.makeText(getApplicationContext(), t.getMessage(),
+                        Toast.LENGTH_LONG).show();
             }
         });
 
-        linearLayout.addView(checkLayout);
-        linearLayout.addView(button);
+
     }
 
     private void toon(String tekst) {
         Toast.makeText(getBaseContext(), tekst, Toast.LENGTH_SHORT).show();
     }
 
-    private void ExFour() {
-        Intent intent = new Intent(this, ExerciseFour.class);
-        startActivity(intent);
+
+    private void GetWords() {
+        Call<ArrayList<WordPair>> call = apiInetface.getWordPaires(selectedAge, selectedTypeWord);
+        call.enqueue(new Callback<ArrayList<WordPair>>() {
+            @Override
+            public void onResponse(Call<ArrayList<WordPair>> call, Response<ArrayList<WordPair>> response) {
+                if (response.isSuccessful()) {
+                    wordPairs = response.body();
+                    Global.wordPairs = wordPairs;
+                    for (int i = 0; i < wordPairs.size(); i++) {
+                        setWords(wordPairs.get(i).getWrongWordId());
+                        setWords(wordPairs.get(i).getRightWordId());
+                    }
+
+
+                } else {
+                    Toast.makeText(getApplicationContext(), response.message(),
+                            Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<WordPair>> call, Throwable t) {
+                call.cancel();
+                Toast.makeText(getApplicationContext(), t.getMessage(),
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
 
-    private void nextActivity() {
-        Intent intent = new Intent(this, ExerciseOne.class);
-        startActivity(intent);
+    public void setWords(String right) {
+        Call<Word> call = apiInetface.getWord(right);
+        call.enqueue(new Callback<Word>() {
+            @Override
+            public void onResponse(Call<Word> call, Response<Word> response) {
+                if (response.isSuccessful()) {
+                    Word word = response.body();
+                    Global.words.add(word);
+                    if (words.size() == Global.wordPairs.size() * 2) {
+                        Intent intent = new Intent(getApplicationContext(), ExerciseOne.class);
+                        startActivity(intent);
+                    }
+
+                } else {
+                    Toast.makeText(getApplicationContext(), response.message(),
+                            Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Word> call, Throwable t) {
+                call.cancel();
+                Toast.makeText(getApplicationContext(), t.getMessage(),
+                        Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 
