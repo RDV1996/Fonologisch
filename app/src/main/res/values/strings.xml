@@ -7,4 +7,18 @@
     <string name="title_activity_exercise_three">Oefening 3</string>
     <string name="title_activity_exercise_four">Oefening 4</string>
     <string name="title_activity_exercise_five">Oefening 5</string>
+    <string name="title_activity_results">Resultaten</string>
+
+    <string name="score">Score</string>
+
+    <!--Content descriptions-->
+    <string name="cd_sound">Sound</string>
+    <string name="cd_exercise_one_left">Left Image</string>
+    <string name="cd_exercise_one_right">Right Image</string>
+    <string name="cd_exercise_two_left">Left Image</string>
+    <string name="cd_exercise_two_right">Right Image</string>
+    <string name="cd_exercise_three_lefttop">Left Top Image</string>
+    <string name="cd_exercise_three_leftbottom">Left Bottom Image</string>
+    <string name="cd_exercise_three_righttop">Right Top Image</string>
+    <string name="cd_exercise_three_rightbottom">Right Bottom Image</string>
 </resources>
