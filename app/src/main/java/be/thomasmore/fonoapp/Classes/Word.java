@@ -90,4 +90,6 @@ public class Word {
     public void setSentenceSound(String sentenceSound) {
         this.sentenceSound = sentenceSound;
     }
+
+
 }
