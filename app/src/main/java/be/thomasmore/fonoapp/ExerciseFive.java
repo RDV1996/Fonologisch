@@ -98,7 +98,7 @@ public class ExerciseFive extends AppCompatActivity {
                 imageView.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         imageClick((ImageView) v);
-                        imageView.setImageResource(getResources().getIdentifier("basket", "drawable", getPackageName()));
+                        imageView.setImageResource(getResources().getIdentifier(Global.words.get(Integer.parseInt(v.getTag().toString())).getMainImg(), "drawable", getPackageName()));
                     }
                 });
 
