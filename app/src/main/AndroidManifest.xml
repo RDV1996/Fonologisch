@@ -24,27 +24,23 @@
         <activity
             android:name=".CategorySelect"
             android:label="@string/title_activity_age_select"
-            android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="landscape"
-            />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ExerciseOne"
             android:label="@string/title_activity_exercise_one"
-            android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="landscape"
-            />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ExerciseTwo"
             android:label="@string/title_activity_exercise_two"
-            android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="landscape"
-            />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ExerciseThree"
             android:label="@string/title_activity_exercise_three"
-            android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="landscape"
-            />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ExerciseFour"
             android:label="@string/title_activity_exercise_four"
@@ -53,9 +49,13 @@
         <activity
             android:name=".ExerciseFive"
             android:label="@string/title_activity_exercise_five"
-            android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="landscape"
-            ></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Results"
+            android:label="@string/title_activity_results"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
