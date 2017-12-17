@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,13 +15,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import be.thomasmore.fonoapp.Classes.Word;
 
 public class ExerciseTwo extends AppCompatActivity {
 
@@ -28,16 +27,15 @@ public class ExerciseTwo extends AppCompatActivity {
     int k = 0;
     int teller;
     int fouten;
-    int audioTeller = 0;
-    List<String> imageFiles;
-    List<String> audioFiles;
-    List<String> imageViewFilesString = Arrays.asList("left", "right");
 
     SoundPool soundPool;
     int[] sm = new int[2];
     AudioManager amg;
 
     Timer timer = new Timer();
+
+    Word leftWord;
+    Word rightWord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,28 +53,27 @@ public class ExerciseTwo extends AppCompatActivity {
         TextView scoreView = (TextView) findViewById(R.id.score);
         scoreView.setText(String.valueOf(teller));
 
-        findMedia();
+        initWords();
         initSound();
-        basePictures();
         k = rand.nextInt(2);
+
+        final MediaPlayer playSound = MediaPlayer.create(this,R.raw.instructie2);
+        playSound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer player){
+                basePictures();
+            }
+        });
+        playSound.start();
     }
 
-    // Zoek naar de audio- en afbeeldingbestanden
-    private void findMedia() {
-        imageFiles = new ArrayList<>();
-        audioFiles = new ArrayList<>();
-
-        Field[] raws = be.thomasmore.fonoapp.R.raw.class.getFields();
-        Field[] drawables = be.thomasmore.fonoapp.R.drawable.class.getFields();
-        for (Field f : raws) {
-            audioFiles.add(f.getName());
-
-            for (Field g : drawables) {
-                if (g.getName().startsWith("img_" + audioFiles.get(audioTeller))) {
-                    imageFiles.add(g.getName());
-                }
-            }
-            audioTeller++;
+    private void initWords() {
+        if (Math.random() < 0.5) {
+            leftWord = Global.getWordById(Global.wordPairs.get(0).getRightWordId());
+            rightWord = Global.getWordById(Global.wordPairs.get(0).getWrongWordId());
+        } else {
+            leftWord = Global.getWordById(Global.wordPairs.get(0).getWrongWordId());
+            rightWord = Global.getWordById(Global.wordPairs.get(0).getRightWordId());
         }
     }
 
@@ -91,9 +88,8 @@ public class ExerciseTwo extends AppCompatActivity {
             soundPool = new SoundPool(maxStreams, AudioManager.STREAM_MUSIC, 0);
         }
 
-        for (int i = 0; i < 2; i++) {
-            sm[i] = soundPool.load(this, getResources().getIdentifier(audioFiles.get(i + 1), "raw", getPackageName()), 1);
-        }
+        sm[0] = soundPool.load(this, getResources().getIdentifier(leftWord.getWordsound(), "raw", getPackageName()), 1);
+        sm[1] = soundPool.load(this, getResources().getIdentifier(rightWord.getWordsound(), "raw", getPackageName()), 1);
 
         amg = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
     }
@@ -109,12 +105,13 @@ public class ExerciseTwo extends AppCompatActivity {
     }
 
     private void basePictures() {
-        for (int i = 0; i < imageViewFilesString.size(); i++){
-            String imageFile = imageViewFilesString.get(i);
-            ImageView imageView = (ImageView) findViewById(getResources().getIdentifier(imageFile, "id", getPackageName()));
-            imageView.setImageResource(getResources().getIdentifier(imageFiles.get(imageViewFilesString.indexOf(imageFile)), "drawable", getPackageName()));
-            imageView.setTag(i);
-        }
+        ImageView imageViewLeft = (ImageView) findViewById(getResources().getIdentifier("left", "id", getPackageName()));
+        imageViewLeft.setImageResource(getResources().getIdentifier(leftWord.getMainImg(), "drawable", getPackageName()));
+        imageViewLeft.setTag(0);
+
+        ImageView imageViewRight = (ImageView) findViewById(getResources().getIdentifier("right", "id", getPackageName()));
+        imageViewRight.setImageResource(getResources().getIdentifier(rightWord.getMainImg(), "drawable", getPackageName()));
+        imageViewRight.setTag(1);
     }
 
     // Geeft score bij juiste antwoorden. Maakt fout antwoord rood, goed antwoord groen
@@ -125,28 +122,29 @@ public class ExerciseTwo extends AppCompatActivity {
 
         TextView scoreView = (TextView) findViewById(R.id.score);
 
-        if (teller == 16) {
-            onCompletion();
-        } else if (tag.equals(String.valueOf(k))) {
+        if (tag.equals(String.valueOf(k))) {
             v.setBackgroundResource(R.drawable.border_green);
             playSound();
             k = rand.nextInt(2);
             teller++;
             scoreView.setText(String.valueOf(teller));
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            imageViewLeft.setBackgroundResource(0);
-                            imageViewRight.setBackgroundResource(0);
-                        }
-                    });
-                    playSound();
-                }
-            }, 2000);
-
+            if (teller == 16) {
+                onCompletion();
+            } else {
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                imageViewLeft.setBackgroundResource(0);
+                                imageViewRight.setBackgroundResource(0);
+                            }
+                        });
+                        playSound();
+                    }
+                }, 2000);
+            }
         } else {
             v.setBackgroundResource(R.drawable.border_red);
             playSound();
