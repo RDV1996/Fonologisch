@@ -204,7 +204,7 @@ public class ExerciseFive extends AppCompatActivity {
             winnaar = "Gelijkspel voor oefening 5!";
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Winnaar van Oef 5: " + winnaar + "\nTotale Fouten: " + String.valueOf(fouten))
+        builder.setMessage(winnaar + "\nTotale Fouten: " + String.valueOf(fouten))
                 .setTitle(R.string.title_activity_exercise_five)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
