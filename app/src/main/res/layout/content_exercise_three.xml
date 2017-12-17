@@ -8,55 +8,67 @@
     tools:context="be.thomasmore.fonoapp.ExerciseThree"
     tools:showIn="@layout/activity_exercise_three">
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="4" >
+    <RelativeLayout
+        android:id="@+id/mainWindow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/leftTop"
+            android:contentDescription="@string/cd_exercise_three_lefttop"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:padding="20dp" />
+
+        <ImageView
+            android:id="@+id/leftBottom"
+            android:contentDescription="@string/cd_exercise_three_leftbottom"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:padding="20dp"/>
+
+        <ImageView
+            android:id="@+id/rightTop"
+            android:contentDescription="@string/cd_exercise_three_righttop"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:padding="20dp"/>
+
+        <ImageView
+            android:id="@+id/rightBottom"
+            android:contentDescription="@string/cd_exercise_three_rightbottom"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:padding="20dp"/>
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical" >
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/img_beer"
-                android:layout_marginLeft="20dp"
-                android:onClick="nextActivity"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
+            android:id="@+id/numbers"
+            android:layout_width="200dp"
+            android:layout_height="175dp"
             android:orientation="vertical"
-            android:id="@+id/randomPictures" >
-
+            android:layout_centerInParent="true">
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/score"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical" >
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:paddingBottom="20dp"/>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/basket"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="60dp"
-                android:onClick="nextActivity"/>
-
-        </LinearLayout>
-
-
-    </LinearLayout>
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
