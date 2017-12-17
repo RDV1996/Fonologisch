@@ -23,7 +23,7 @@
             <ImageView
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/img_beer"
+                android:src="@drawable/main_beer"
                 android:layout_gravity="center_horizontal"
                 android:onClick="nextActivity"/>
 
@@ -38,7 +38,7 @@
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/img_peer"
+                android:src="@drawable/main_peer"
                 android:layout_gravity="center_horizontal"
                 android:onClick="nextActivity"/>
 

@@ -38,10 +38,12 @@ public class ExerciseFour extends AppCompatActivity {
         setContentView(R.layout.activity_exercise_four);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        final MediaPlayer playSound = MediaPlayer.create(this,R.raw.instructie4);
-        playSound.start();
+
+
         leftButton = (Button) findViewById(R.id.ex4ButtonLeft);
+        leftButton.setEnabled(false);
         rightButton = (Button) findViewById(R.id.ex4ButtonRight);
+        rightButton.setEnabled(false);
         text = (TextView) findViewById(R.id.textEx4);
         img = (ImageView) findViewById(R.id.imgEx4);
         apiInetface = APIClient.getClient().create(APIInterface.class);
@@ -60,7 +62,18 @@ public class ExerciseFour extends AppCompatActivity {
         } else {
             max = Global.wordPairs.size();
         }
-        setupQuestion();
+        final MediaPlayer playSound = MediaPlayer.create(this,R.raw.instructie4);
+        playSound.setOnCompletionListener(new MediaPlayer.OnCompletionListener(){
+            @Override
+            public void onCompletion(MediaPlayer player){
+                setupQuestion();
+            }
+        });
+        playSound.start();
+    }
+    public void playSound(View v){
+        final MediaPlayer playSound = MediaPlayer.create(this, getResources().getIdentifier(rightWord.getSentenceSound(), "raw", getPackageName()));
+        playSound.start();
     }
 
     public void setupQuestion() {
@@ -79,10 +92,10 @@ public class ExerciseFour extends AppCompatActivity {
             rightButton.setText(wrongWord.getWord());
             rightButton.setTag(wrongWord.getWord());
         } else {
-            rightButton.setText(wrongWord.getWord());
-            leftButton.setText(rightWord.getWord());
-            rightButton.setTag(wrongWord.getWord());
-            leftButton.setTag(rightWord.getWord());
+            rightButton.setText(rightWord.getWord());
+            leftButton.setText(wrongWord.getWord());
+            rightButton.setTag(rightWord.getWord());
+            leftButton.setTag(wrongWord.getWord());
         }
 
         text.setText(rightWord.getSentence());
@@ -92,8 +105,7 @@ public class ExerciseFour extends AppCompatActivity {
         leftButton.setBackgroundResource(R.drawable.border_black);
         rightButton.setEnabled(true);
         rightButton.setBackgroundResource(R.drawable.border_black);
-        final MediaPlayer playSound = MediaPlayer.create(this, getResources().getIdentifier(rightWord.getSentenceSound(), "raw", getPackageName()));
-        playSound.start();
+        playSound(leftButton);
     }
 
     public void antwoord(View v) {

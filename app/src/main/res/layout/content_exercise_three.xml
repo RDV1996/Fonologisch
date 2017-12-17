@@ -23,7 +23,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/img_beer"
+                android:src="@drawable/main_beer"
                 android:layout_marginLeft="20dp"
                 android:onClick="nextActivity"/>
 

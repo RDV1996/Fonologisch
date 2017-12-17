@@ -1,5 +1,6 @@
 package be.thomasmore.fonoapp;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -23,7 +25,14 @@ public class ExerciseFive extends AppCompatActivity {
     int total;
     ArrayList<ImageView> pictures;
     APIInterface apiInetface;
-
+    int score1;
+    int score2;
+    TextView view1;
+    TextView view2;
+    TextView TopText;
+    int player;
+    LinearLayout game;
+    LinearLayout score;
 
 
     @Override
@@ -32,16 +41,31 @@ public class ExerciseFive extends AppCompatActivity {
         setContentView(R.layout.activity_exercise_five);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        final MediaPlayer playSound = MediaPlayer.create(this, R.raw.instructie5);
+        playSound.start();
         apiInetface = APIClient.getClient().create(APIInterface.class);
         pictures = new ArrayList<>();
+        score1 = 0;
+        score2 = 0;
+        player = 1;
+        view1 = (TextView) findViewById(R.id.Ex5S1);
+        view2 = (TextView) findViewById(R.id.Ex5S2);
+        TopText = (TextView) findViewById(R.id.TopText);
+
+        game = (LinearLayout) findViewById(R.id.exFiveGame);
+        score = (LinearLayout) findViewById(R.id.exFiveScore);
+
+
+
         makeGame();
     }
 
-    public void makeGame(){
+    public void makeGame() {
+        score.setVisibility(View.INVISIBLE);
         Collections.shuffle(Global.words);
         int size = Global.words.size();
 
-        switch (size){
+        switch (size) {
             case 0:
                 show("No words");
                 break;
@@ -99,6 +123,7 @@ public class ExerciseFive extends AppCompatActivity {
                     public void onClick(View v) {
                         imageClick((ImageView) v);
                         imageView.setImageResource(getResources().getIdentifier(Global.words.get(Integer.parseInt(v.getTag().toString())).getMainImg(), "drawable", getPackageName()));
+                        scorePhase();
                     }
                 });
 
@@ -108,12 +133,42 @@ public class ExerciseFive extends AppCompatActivity {
             }
         }
 
+
     }
-    public void imageClick(View v){
+
+    public void imageClick(View v) {
         show(v.getTag() + "");
     }
 
     private void show(String tekst) {
         Toast.makeText(getBaseContext(), tekst, Toast.LENGTH_SHORT).show();
     }
+
+    public void scorePhase() {
+        game.setVisibility(View.INVISIBLE);
+        score.setVisibility(View.VISIBLE);
+        TopText.setText("Had speler " +player+" het juist?");
+    }
+
+    private void exFiveAntwoord(View v){
+        if(Integer.parseInt(v.getTag().toString()) == 1){
+            if(player == 1){
+                score1++;
+                player =2;
+            }
+            else {
+                score2 ++;
+                player = 1;
+            }
+        }
+
+        gamePhase();
+    }
+
+    private void gamePhase(){
+        game.setVisibility(View.VISIBLE);
+        score.setVisibility(View.INVISIBLE);
+        TopText.setText("het is de beurt aan speler " + player);
+    }
+
 }

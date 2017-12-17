@@ -42,6 +42,7 @@ public class CategorySelect extends AppCompatActivity {
     ArrayList<DisorderType> disorderTypes;
     ArrayList<WordPairType> wordPairTypes;
     ArrayList<WordPair> wordPairs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -207,22 +208,22 @@ public class CategorySelect extends AppCompatActivity {
                         linearLayout.addView(button);
                     }
 
-                    } else
+                } else
 
-                    {
-                        Toast.makeText(getApplicationContext(), response.message(),
-                                Toast.LENGTH_LONG).show();
-                    }
-
-                }
-
-                @Override
-                public void onFailure (Call < ArrayList < WordPairType >> call, Throwable t){
-                    call.cancel();
-                    Toast.makeText(getApplicationContext(), t.getMessage(),
+                {
+                    Toast.makeText(getApplicationContext(), response.message(),
                             Toast.LENGTH_LONG).show();
                 }
-            });
+
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<WordPairType>> call, Throwable t) {
+                call.cancel();
+                Toast.makeText(getApplicationContext(), t.getMessage(),
+                        Toast.LENGTH_LONG).show();
+            }
+        });
 
 
     }
@@ -269,8 +270,9 @@ public class CategorySelect extends AppCompatActivity {
             @Override
             public void onResponse(Call<Word> call, Response<Word> response) {
                 if (response.isSuccessful()) {
-                    Global.words.add(response.body());
-                    if(words.size() == Global.wordPairs.size() * 2){
+                    Word word = response.body();
+                    Global.words.add(word);
+                    if (words.size() == Global.wordPairs.size() * 2) {
                         Intent intent = new Intent(getApplicationContext(), ExerciseOne.class);
                         startActivity(intent);
                     }
