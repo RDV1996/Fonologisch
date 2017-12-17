@@ -8,25 +8,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.Collections;
 
 import be.thomasmore.fonoapp.Classes.Word;
-import be.thomasmore.fonoapp.Classes.WordPair;
 import be.thomasmore.fonoapp.rest.APIClient;
 import be.thomasmore.fonoapp.rest.APIInterface;
 import be.thomasmore.fonoapp.test.TestAPI;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ExerciseFour extends AppCompatActivity {
 
     String correct;
     TestAPI testAPI;
-    ArrayList<WordPair> wordPairs;
     int counter;
     Button leftButton;
     Button rightButton;
@@ -48,11 +41,10 @@ public class ExerciseFour extends AppCompatActivity {
         rightButton = (Button) findViewById(R.id.ex4ButtonRight);
         text = (TextView) findViewById(R.id.textEx4);
         img = (ImageView) findViewById(R.id.imgEx4);
-        wordPairs = Global.wordPairs;
         apiInetface = APIClient.getClient().create(APIInterface.class);
         counter = 0;
         score = 0;
-        Collections.shuffle(wordPairs);
+        Collections.shuffle(Global.wordPairs);
 
         Button button = (Button) findViewById(R.id.volgendeEx4);
         button.setOnClickListener(new View.OnClickListener() {
@@ -60,10 +52,10 @@ public class ExerciseFour extends AppCompatActivity {
                 volgende(v);
             }
         });
-        if (wordPairs.size() >= 5) {
+        if (Global.wordPairs.size() >= 5) {
             max = 5;
         } else {
-            max = wordPairs.size();
+            max = Global.wordPairs.size();
         }
         setupQuestion();
     }
@@ -72,13 +64,12 @@ public class ExerciseFour extends AppCompatActivity {
         Button button = (Button) findViewById(R.id.volgendeEx4);
         button.setVisibility(View.GONE);
         if (Math.random() < 0.5) {
-            setWords(wordPairs.get(counter).getRightWordId(), wordPairs.get(counter).getWrongWordId());
+            rightWord = Global.getWordById(Global.wordPairs.get(counter).getRightWordId());
+            wrongWord = Global.getWordById(Global.wordPairs.get(counter).getWrongWordId());
         } else {
-            setWords(wordPairs.get(counter).getWrongWordId(), wordPairs.get(counter).getRightWordId());
+            rightWord = Global.getWordById(Global.wordPairs.get(counter).getWrongWordId());
+            wrongWord = Global.getWordById(Global.wordPairs.get(counter).getRightWordId());
         }
-    }
-
-    public void continueSetup() {
         if (Math.random() < 0.5) {
             leftButton.setText(rightWord.getWord());
             leftButton.setTag(rightWord.getWord());
@@ -118,7 +109,6 @@ public class ExerciseFour extends AppCompatActivity {
     public void right(View v) {
         v.setBackgroundResource(R.drawable.border_green);
         score++;
-        TextView score = (TextView) findViewById(R.id.)
     }
 
     public void wrong(View v) {
@@ -134,55 +124,5 @@ public class ExerciseFour extends AppCompatActivity {
             setupQuestion();
 
         }
-    }
-
-    public void setWords(String right, final String wrong) {
-        Call<Word> call = apiInetface.getWord(right);
-        call.enqueue(new Callback<Word>() {
-            @Override
-            public void onResponse(Call<Word> call, Response<Word> response) {
-                if (response.isSuccessful()) {
-                    rightWord = response.body();
-                    setWrongWord(wrong);
-
-                } else {
-                    Toast.makeText(getApplicationContext(), response.message(),
-                            Toast.LENGTH_LONG).show();
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<Word> call, Throwable t) {
-                call.cancel();
-                Toast.makeText(getApplicationContext(), t.getMessage(),
-                        Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
-    public void setWrongWord(String id) {
-
-        Call<Word> call = apiInetface.getWord(id);
-        call.enqueue(new Callback<Word>() {
-            @Override
-            public void onResponse(Call<Word> call, Response<Word> response) {
-                if (response.isSuccessful()) {
-                    wrongWord = response.body();
-                    continueSetup();
-                } else {
-                    Toast.makeText(getApplicationContext(), response.message(),
-                            Toast.LENGTH_LONG).show();
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<Word> call, Throwable t) {
-                call.cancel();
-                Toast.makeText(getApplicationContext(), t.getMessage(),
-                        Toast.LENGTH_LONG).show();
-            }
-        });
     }
 }

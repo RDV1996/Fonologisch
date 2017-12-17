@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 import be.thomasmore.fonoapp.Classes.AgeRange;
 import be.thomasmore.fonoapp.Classes.DisorderType;
+import be.thomasmore.fonoapp.Classes.Word;
 import be.thomasmore.fonoapp.Classes.WordPair;
 import be.thomasmore.fonoapp.Classes.WordPairType;
 import be.thomasmore.fonoapp.rest.APIClient;
@@ -25,6 +26,8 @@ import be.thomasmore.fonoapp.test.TestAPI;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static be.thomasmore.fonoapp.Global.words;
 
 public class CategorySelect extends AppCompatActivity {
 
@@ -47,7 +50,7 @@ public class CategorySelect extends AppCompatActivity {
         setSupportActionBar(toolbar);
         apiInetface = APIClient.getClient().create(APIInterface.class);
         makeAgeLayout();
-
+        Global.words = new ArrayList<>();
 
     }
 
@@ -196,7 +199,7 @@ public class CategorySelect extends AppCompatActivity {
                         button.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View v) {
                                 selectedTypeWord = v.getTag().toString();
-                                nextActivity();
+                                GetWords();
                             }
                         });
 
@@ -229,7 +232,7 @@ public class CategorySelect extends AppCompatActivity {
     }
 
 
-    private void nextActivity() {
+    private void GetWords() {
         Call<ArrayList<WordPair>> call = apiInetface.getWordPaires(selectedAge, selectedTypeWord);
         call.enqueue(new Callback<ArrayList<WordPair>>() {
             @Override
@@ -237,8 +240,11 @@ public class CategorySelect extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     wordPairs = response.body();
                     Global.wordPairs = wordPairs;
-                    Intent intent = new Intent(getApplicationContext(), ExerciseOne.class);
-                    startActivity(intent);
+                    for (int i = 0; i < wordPairs.size(); i++) {
+                        setWords(wordPairs.get(i).getWrongWordId());
+                        setWords(wordPairs.get(i).getRightWordId());
+                    }
+
 
                 } else {
                     Toast.makeText(getApplicationContext(), response.message(),
@@ -255,6 +261,34 @@ public class CategorySelect extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void setWords(String right) {
+        Call<Word> call = apiInetface.getWord(right);
+        call.enqueue(new Callback<Word>() {
+            @Override
+            public void onResponse(Call<Word> call, Response<Word> response) {
+                if (response.isSuccessful()) {
+                    Global.words.add(response.body());
+                    if(words.size() == Global.wordPairs.size() * 2){
+                        Intent intent = new Intent(getApplicationContext(), ExerciseOne.class);
+                        startActivity(intent);
+                    }
+
+                } else {
+                    Toast.makeText(getApplicationContext(), response.message(),
+                            Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Word> call, Throwable t) {
+                call.cancel();
+                Toast.makeText(getApplicationContext(), t.getMessage(),
+                        Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 

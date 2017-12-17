@@ -9,18 +9,22 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
+
+import be.thomasmore.fonoapp.rest.APIClient;
+import be.thomasmore.fonoapp.rest.APIInterface;
 
 public class ExerciseFive extends AppCompatActivity {
 
-    List<String> filenames;
-    int column = 3;
-    int row = 3;
-    int total = row * column;
-    ImageView pictures[] = new ImageView[total];
+
+    int column;
+    int row;
+    int total;
+    ArrayList<ImageView> pictures;
+    APIInterface apiInetface;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +32,46 @@ public class ExerciseFive extends AppCompatActivity {
         setContentView(R.layout.activity_exercise_five);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        apiInetface = APIClient.getClient().create(APIInterface.class);
+        pictures = new ArrayList<>();
         makeGame();
     }
 
     public void makeGame(){
-        leesLogos();
+        Collections.shuffle(Global.words);
+        int size = Global.words.size();
+
+        switch (size){
+            case 0:
+                show("No words");
+                break;
+            case 2:
+                row = 1;
+                column = 2;
+                break;
+            case 4:
+                row = 2;
+                column = 2;
+                break;
+            case 6:
+                row = 3;
+                column = 2;
+                break;
+            case 8:
+                row = 2;
+                column = 4;
+                break;
+            case 10:
+                row = 2;
+                column = 5;
+                break;
+            default:
+                row = 3;
+                column = 4;
+                break;
+        }
+
+        total = row * column;
         int k = 0;
         LinearLayout gameLayout = (LinearLayout) findViewById(R.id.exFiveGame);
         for (int i = 0; i < row; i++) {
@@ -60,11 +98,11 @@ public class ExerciseFive extends AppCompatActivity {
                 imageView.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         imageClick((ImageView) v);
-                        imageView.setImageResource(getResources().getIdentifier(filenames.get((int)v.getTag()), "drawable", getPackageName()));
+                        imageView.setImageResource(getResources().getIdentifier("basket", "drawable", getPackageName()));
                     }
                 });
 
-                pictures[k] = imageView;
+                pictures.add(imageView);
                 k++;
                 linearLayout.addView(imageView);
             }
@@ -73,17 +111,6 @@ public class ExerciseFive extends AppCompatActivity {
     }
     public void imageClick(View v){
         show(v.getTag() + "");
-    }
-
-    private void leesLogos() {
-        filenames = new ArrayList<String>();
-        Field[] drawables = be.thomasmore.fonoapp.R.drawable.class.getFields();
-        for (Field f : drawables) {
-            if (f.getName().startsWith("img_")) {
-                filenames.add(f.getName());
-            }
-        }
-        Collections.shuffle(filenames);
     }
 
     private void show(String tekst) {
