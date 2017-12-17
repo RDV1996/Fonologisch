@@ -38,6 +38,8 @@ public class ExerciseFour extends AppCompatActivity {
         setContentView(R.layout.activity_exercise_four);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        final MediaPlayer playSound = MediaPlayer.create(this,R.raw.instructie4);
+        playSound.start();
         leftButton = (Button) findViewById(R.id.ex4ButtonLeft);
         rightButton = (Button) findViewById(R.id.ex4ButtonRight);
         text = (TextView) findViewById(R.id.textEx4);
