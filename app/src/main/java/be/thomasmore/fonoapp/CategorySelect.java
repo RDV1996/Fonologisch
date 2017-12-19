@@ -2,6 +2,7 @@ package be.thomasmore.fonoapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
@@ -71,6 +72,7 @@ public class CategorySelect extends AppCompatActivity {
                         button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
                         button.setGravity(Gravity.CENTER);
                         button.setBackgroundResource(R.drawable.border_black);
+                        button.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.black));
 
                         LinearLayout.LayoutParams layoutTextParams =
                                 new LinearLayout.LayoutParams(
@@ -136,6 +138,7 @@ public class CategorySelect extends AppCompatActivity {
                         layoutTextParams.height = 400;
                         layoutTextParams.width = 400;
                         button.setLayoutParams(layoutTextParams);
+                        button.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.black));
 
                         button.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View v) {
@@ -181,6 +184,7 @@ public class CategorySelect extends AppCompatActivity {
                         button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
                         button.setGravity(Gravity.CENTER);
                         button.setBackgroundResource(R.drawable.border_black);
+                        button.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.black));
 
                         LinearLayout.LayoutParams layoutTextParams =
                                 new LinearLayout.LayoutParams(
