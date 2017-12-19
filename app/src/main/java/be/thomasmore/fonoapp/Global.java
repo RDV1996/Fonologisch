@@ -12,6 +12,8 @@ import be.thomasmore.fonoapp.Classes.WordPair;
 public class Global {
     public static ArrayList<WordPair> wordPairs;
     public static ArrayList<Word> words;
+    public static int score;
+    public static ArrayList<String> foutenLijst = new ArrayList<>();
 
     public static Word getWordById(String id) {
         for (int i = 0; i < words.size(); i++) {

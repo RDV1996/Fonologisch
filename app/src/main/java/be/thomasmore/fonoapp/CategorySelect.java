@@ -22,7 +22,6 @@ import be.thomasmore.fonoapp.Classes.WordPair;
 import be.thomasmore.fonoapp.Classes.WordPairType;
 import be.thomasmore.fonoapp.rest.APIClient;
 import be.thomasmore.fonoapp.rest.APIInterface;
-import be.thomasmore.fonoapp.test.TestAPI;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,7 +35,7 @@ public class CategorySelect extends AppCompatActivity {
     String selectedAge;
     String selectedType;
     String selectedTypeWord;
-    TestAPI testAPI;
+
     APIInterface apiInetface;
     ArrayList<AgeRange> ages;
     ArrayList<DisorderType> disorderTypes;
