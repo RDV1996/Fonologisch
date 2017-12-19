@@ -2,6 +2,7 @@ package be.thomasmore.fonoapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
@@ -22,7 +23,6 @@ import be.thomasmore.fonoapp.Classes.WordPair;
 import be.thomasmore.fonoapp.Classes.WordPairType;
 import be.thomasmore.fonoapp.rest.APIClient;
 import be.thomasmore.fonoapp.rest.APIInterface;
-import be.thomasmore.fonoapp.test.TestAPI;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,7 +36,7 @@ public class CategorySelect extends AppCompatActivity {
     String selectedAge;
     String selectedType;
     String selectedTypeWord;
-    TestAPI testAPI;
+
     APIInterface apiInetface;
     ArrayList<AgeRange> ages;
     ArrayList<DisorderType> disorderTypes;
@@ -71,6 +71,7 @@ public class CategorySelect extends AppCompatActivity {
                         button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
                         button.setGravity(Gravity.CENTER);
                         button.setBackgroundResource(R.drawable.border_black);
+                        button.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.black));
 
                         LinearLayout.LayoutParams layoutTextParams =
                                 new LinearLayout.LayoutParams(
@@ -136,6 +137,7 @@ public class CategorySelect extends AppCompatActivity {
                         layoutTextParams.height = 400;
                         layoutTextParams.width = 400;
                         button.setLayoutParams(layoutTextParams);
+                        button.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.black));
 
                         button.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View v) {
@@ -181,6 +183,7 @@ public class CategorySelect extends AppCompatActivity {
                         button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
                         button.setGravity(Gravity.CENTER);
                         button.setBackgroundResource(R.drawable.border_black);
+                        button.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.black));
 
                         LinearLayout.LayoutParams layoutTextParams =
                                 new LinearLayout.LayoutParams(
