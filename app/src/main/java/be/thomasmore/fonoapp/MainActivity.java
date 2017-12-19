@@ -66,9 +66,6 @@ public class MainActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
         }
 
-        Intent intent = new Intent(getApplicationContext(), CategorySelect.class);
-        startActivity(intent);
-
     }
 
     @Override
