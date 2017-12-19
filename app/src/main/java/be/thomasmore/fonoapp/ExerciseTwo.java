@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Collections;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -25,8 +26,8 @@ public class ExerciseTwo extends AppCompatActivity {
 
     Random rand = new Random();
     int k = 0;
-    int teller;
-    int fouten;
+    int teller = 0;
+    int fouten = 0;
 
     SoundPool soundPool;
     int[] sm = new int[2];
@@ -44,11 +45,7 @@ public class ExerciseTwo extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Bundle bundle = getIntent().getExtras();
-        assert bundle != null;
-        teller = bundle.getInt("teller");
-        fouten = bundle.getInt("fouten");
-
+        Collections.shuffle(Global.wordPairs);
 
         TextView scoreView = (TextView) findViewById(R.id.score);
         scoreView.setText(String.valueOf(teller));
@@ -62,6 +59,7 @@ public class ExerciseTwo extends AppCompatActivity {
             @Override
             public void onCompletion(MediaPlayer player){
                 basePictures();
+                playSound();
             }
         });
         playSound.start();
@@ -95,12 +93,7 @@ public class ExerciseTwo extends AppCompatActivity {
     }
 
     public void nextActivity() {
-        Bundle bundle = new Bundle();
-        bundle.putInt("teller", teller);
-        bundle.putInt("fouten", fouten);
         Intent intent = new Intent(this, ExerciseThree.class);
-        intent.putExtras(bundle);
-
         startActivity(intent);
     }
 
@@ -124,11 +117,11 @@ public class ExerciseTwo extends AppCompatActivity {
 
         if (tag.equals(String.valueOf(k))) {
             v.setBackgroundResource(R.drawable.border_green);
-            playSound();
             k = rand.nextInt(2);
             teller++;
             scoreView.setText(String.valueOf(teller));
-            if (teller == 16) {
+            if (teller >= 7) {
+                // score = teller;
                 onCompletion();
             } else {
                 timer.schedule(new TimerTask() {
@@ -157,11 +150,6 @@ public class ExerciseTwo extends AppCompatActivity {
         soundPool.play(sm[k], 1, 1, 1, 0, 1f);
     }
 
-    // Speelt het geluid af voor de geluidsknop
-    public void playSoundEx2(View v) {
-        soundPool.play(sm[k], 1, 1, 1, 0, 1f);
-    }
-
     // DialogBox wanneer de oefening voorbij is. Gaat naar de volgende oefening
     public void onCompletion() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -173,6 +161,7 @@ public class ExerciseTwo extends AppCompatActivity {
                         cleanUpIfEnd();
                     }
                 })
+                .setCancelable(false)
                 .show();
     }
 
