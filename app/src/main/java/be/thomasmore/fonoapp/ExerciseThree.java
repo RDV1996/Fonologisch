@@ -22,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import be.thomasmore.fonoapp.Classes.Word;
@@ -34,8 +35,8 @@ public class ExerciseThree extends AppCompatActivity {
     TextView textViews[] = new TextView[total];
 
     int cijfers = 1;
-    int teller;
-    int fouten;
+    int teller = 0;
+    int fouten = 0;
 
     SoundPool soundPool;
     int[] sm = new int[5];
@@ -55,13 +56,10 @@ public class ExerciseThree extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Bundle bundle = getIntent().getExtras();
-        assert bundle != null;
-        teller = bundle.getInt("teller");
-        fouten = bundle.getInt("fouten");
-
         TextView scoreView = (TextView) findViewById(R.id.score);
         scoreView.setText(String.valueOf(teller));
+
+        Collections.shuffle(Global.wordPairs);
 
         initWord();
         initSound();
@@ -114,11 +112,7 @@ public class ExerciseThree extends AppCompatActivity {
     }
 
     public void nextActivity() {
-        Bundle bundle = new Bundle();
-        bundle.putInt("teller", teller);
-        bundle.putInt("fouten", fouten);
         Intent intent = new Intent(this, ExerciseFour.class);
-        intent.putExtras(bundle);
         startActivity(intent);
     }
 
@@ -211,7 +205,9 @@ public class ExerciseThree extends AppCompatActivity {
 
         teller++;
         scoreView.setText(String.valueOf(teller));
-        if (teller == 20) {
+        if (teller == 4) {
+            // score += teller;
+            // foutenLijst.add(fouten);
             onCompletion();
         }
     }
@@ -266,6 +262,7 @@ public class ExerciseThree extends AppCompatActivity {
                         cleanUpIfEnd();
                     }
                 })
+                .setCancelable(false)
                 .show();
     }
 
