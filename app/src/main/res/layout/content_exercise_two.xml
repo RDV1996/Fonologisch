@@ -47,16 +47,6 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/sound"
-            android:contentDescription="@string/cd_sound"
-            android:src="@drawable/icon"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_alignParentTop="true"
-            android:paddingTop="20dp"
-            android:onClick="playSoundEx2"/>
-
         <TextView
             android:id="@+id/score"
             android:layout_width="wrap_content"

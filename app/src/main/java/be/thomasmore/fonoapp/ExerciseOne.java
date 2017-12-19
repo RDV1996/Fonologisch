@@ -42,6 +42,7 @@ public class ExerciseOne extends AppCompatActivity {
 
     Word leftWord;
     Word rightWord;
+    int counter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,11 +73,11 @@ public class ExerciseOne extends AppCompatActivity {
 
     private void initWords() {
         if (Math.random() < 0.5) {
-            leftWord = Global.getWordById(Global.wordPairs.get(0).getRightWordId());
-            rightWord = Global.getWordById(Global.wordPairs.get(0).getWrongWordId());
+            leftWord = Global.getWordById(Global.wordPairs.get(counter).getRightWordId());
+            rightWord = Global.getWordById(Global.wordPairs.get(counter).getWrongWordId());
         } else {
-            leftWord = Global.getWordById(Global.wordPairs.get(0).getWrongWordId());
-            rightWord = Global.getWordById(Global.wordPairs.get(0).getRightWordId());
+            leftWord = Global.getWordById(Global.wordPairs.get(counter).getWrongWordId());
+            rightWord = Global.getWordById(Global.wordPairs.get(counter).getRightWordId());
         }
     }
 
@@ -97,12 +98,7 @@ public class ExerciseOne extends AppCompatActivity {
     }
 
     public void nextActivity() {
-        Bundle bundle = new Bundle();
-        bundle.putInt("teller", teller);
-        bundle.putInt("fouten", fouten);
         Intent intent = new Intent(this, ExerciseTwo.class);
-        intent.putExtras(bundle);
-
         startActivity(intent);
     }
 
@@ -185,6 +181,7 @@ public class ExerciseOne extends AppCompatActivity {
                         cleanUpIfEnd();
                     }
                 })
+                .setCancelable(false)
                 .show();
     }
 
@@ -193,7 +190,9 @@ public class ExerciseOne extends AppCompatActivity {
         owner.removeView(view);
         teller++;
         scoreView.setText(String.valueOf(teller));
-        if (teller == aantalFotos) {
+        if (teller >= aantalFotos) {
+            // score = teller;
+            // foutenLijst.add(fouten);
             onCompletion();
         }
     }

@@ -36,9 +36,7 @@ public class ExerciseFour extends AppCompatActivity {
     Word rightWord;
     Word wrongWord;
 
-    int teller;
-    int fouten;
-
+    int fouten = 0;
 
     int[] sm;
     SoundPool soundPool;
@@ -51,14 +49,6 @@ public class ExerciseFour extends AppCompatActivity {
         setContentView(R.layout.activity_exercise_four);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        Bundle bundle = getIntent().getExtras();
-        assert bundle != null;
-        teller = bundle.getInt("teller");
-        fouten = bundle.getInt("fouten");
-        teller =0;
-        fouten = 0;
-
 
         leftButton = (Button) findViewById(R.id.ex4ButtonLeft);
         leftButton.setEnabled(false);
@@ -174,7 +164,7 @@ public class ExerciseFour extends AppCompatActivity {
 
     public void right(View v) {
         v.setBackgroundResource(R.drawable.border_green);
-        teller++;
+        // score++;
     }
 
     public void wrong(View v) {
@@ -185,6 +175,7 @@ public class ExerciseFour extends AppCompatActivity {
     public void volgende(View v) {
         counter++;
         if (counter == max) {
+            // foutenLijst.add(fouten);
             onCompletion();
         } else {
             setupQuestion();
@@ -201,6 +192,7 @@ public class ExerciseFour extends AppCompatActivity {
                         cleanUpIfEnd();
                     }
                 })
+                .setCancelable(false)
                 .show();
     }
     // Maakt de SoundPool leeg
@@ -210,12 +202,7 @@ public class ExerciseFour extends AppCompatActivity {
         soundPool = null;
     }
     public void nextActivity() {
-        Bundle bundle = new Bundle();
-        bundle.putInt("teller", teller);
-        bundle.putInt("fouten", fouten);
         Intent intent = new Intent(this, ExerciseFive.class);
-        intent.putExtras(bundle);
-
         startActivity(intent);
     }
 }

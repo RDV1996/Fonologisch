@@ -37,8 +37,10 @@ public class ExerciseFive extends AppCompatActivity {
     int player;
     Button but1;
     Button but2;
-    int teller;
-    int fouten;
+
+    int teller = 0;
+    int fouten = 0;
+
     int counter;
 
     @Override
@@ -61,10 +63,7 @@ public class ExerciseFive extends AppCompatActivity {
 
         but1 = (Button) findViewById(R.id.score1);
         but2 = (Button) findViewById(R.id.score2);
-        Bundle bundle = getIntent().getExtras();
-        assert bundle != null;
-        teller = bundle.getInt("teller");
-        fouten = bundle.getInt("fouten");
+
         makeGame();
     }
 
@@ -216,12 +215,7 @@ public class ExerciseFive extends AppCompatActivity {
 
     // Maakt de SoundPool leeg
     public void nextActivity() {
-        Bundle bundle = new Bundle();
-        bundle.putInt("teller", teller);
-        bundle.putInt("fouten", fouten);
         Intent intent = new Intent(this, Results.class);
-        intent.putExtras(bundle);
-
         startActivity(intent);
     }
 
