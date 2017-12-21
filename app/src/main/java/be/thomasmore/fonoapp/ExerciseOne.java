@@ -191,8 +191,8 @@ public class ExerciseOne extends AppCompatActivity {
         teller++;
         scoreView.setText(String.valueOf(teller));
         if (teller >= aantalFotos) {
-            // score = teller;
-            // foutenLijst.add(fouten);
+            Global.score = teller;
+            Global.foutenLijst.add(fouten);
             onCompletion();
         }
     }
