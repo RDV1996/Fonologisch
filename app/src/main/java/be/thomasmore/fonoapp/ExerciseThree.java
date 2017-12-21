@@ -49,6 +49,8 @@ public class ExerciseThree extends AppCompatActivity {
 
     List<String> imageViewFilesString = Arrays.asList("leftTop", "leftBottom", "rightTop", "rightBottom");
 
+    MediaPlayer playSound = MediaPlayer.create(this,R.raw.instructie3);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +71,6 @@ public class ExerciseThree extends AppCompatActivity {
         findViewById(R.id.leftBottom).setOnDragListener(new ExerciseThree.MyDragListener());
         findViewById(R.id.rightBottom).setOnDragListener(new ExerciseThree.MyDragListener());
 
-        final MediaPlayer playSound = MediaPlayer.create(this,R.raw.instructie3);
         playSound.setOnCompletionListener(new MediaPlayer.OnCompletionListener(){
             @Override
             public void onCompletion(MediaPlayer player) {
@@ -77,6 +78,16 @@ public class ExerciseThree extends AppCompatActivity {
             }
         });
         playSound.start();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if(playSound != null)
+        {
+            playSound.pause();
+        }
     }
 
     private void initWord() {
@@ -206,8 +217,8 @@ public class ExerciseThree extends AppCompatActivity {
         teller++;
         scoreView.setText(String.valueOf(teller));
         if (teller == 4) {
-            // score += teller;
-            // foutenLijst.add(fouten);
+            Global.score += teller;
+            Global.foutenLijst.add(fouten);
             onCompletion();
         }
     }
