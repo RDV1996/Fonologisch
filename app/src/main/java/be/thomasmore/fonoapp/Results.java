@@ -20,7 +20,7 @@ public class Results extends AppCompatActivity {
         String textFouten = "";
 
         for(int i=0; i< Global.foutenLijst.size(); i++){
-            textFouten += "Oefening " +i+1+": " + Global.foutenLijst.get(i) + " fouten";
+            textFouten += "Oefening " +(i+1)+": " + Global.foutenLijst.get(i) + " fouten";
             if(i +1< Global.foutenLijst.size()){
                 textFouten+= "\n";
             }
@@ -30,7 +30,7 @@ public class Results extends AppCompatActivity {
         scoreView.setText("Score: " + String.valueOf(Global.score));
 
         TextView errorView = (TextView) findViewById(R.id.errors);
-        errorView.setText("Fouten: " + String.valueOf(textFouten));
+        errorView.setText(String.valueOf(textFouten));
 
         Button button = (Button) findViewById(R.id.back);
         button.setText("Terug");

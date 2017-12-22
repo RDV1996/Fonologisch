@@ -49,7 +49,7 @@ public class ExerciseThree extends AppCompatActivity {
 
     List<String> imageViewFilesString = Arrays.asList("leftTop", "leftBottom", "rightTop", "rightBottom");
 
-    MediaPlayer playSound = MediaPlayer.create(this,R.raw.instructie3);
+    MediaPlayer playSound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +65,7 @@ public class ExerciseThree extends AppCompatActivity {
 
         initWord();
         initSound();
-
+        playSound = MediaPlayer.create(this,R.raw.instructie3);
         findViewById(R.id.leftTop).setOnDragListener(new ExerciseThree.MyDragListener());
         findViewById(R.id.rightTop).setOnDragListener(new ExerciseThree.MyDragListener());
         findViewById(R.id.leftBottom).setOnDragListener(new ExerciseThree.MyDragListener());
