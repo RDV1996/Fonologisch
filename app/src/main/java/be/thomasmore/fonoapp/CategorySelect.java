@@ -272,13 +272,16 @@ public class CategorySelect extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     Word word = response.body();
                     Global.words.add(word);
-                    if (words.size() == Global.wordPairs.size() * 2 && words.size() >=4) {
-                        Intent intent = new Intent(getApplicationContext(), ExerciseOne.class);
-                        startActivity(intent);
-                    }
-                    else{
-                        Toast.makeText(getApplicationContext(), "Niet genoeg oefeningen",
-                                Toast.LENGTH_LONG).show();
+                    if (words.size() == Global.wordPairs.size() * 2) {
+                        if(words.size() >=4) {
+                            Intent intent = new Intent(getApplicationContext(), ExerciseOne.class);
+                            startActivity(intent);
+                        }
+                        else {
+
+                            Toast.makeText(getApplicationContext(), "niet genoeg oefeningen, kies een andere categorie",
+                                    Toast.LENGTH_LONG).show();
+                        }
                     }
 
 
