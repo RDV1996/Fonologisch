@@ -121,7 +121,8 @@ public class ExerciseTwo extends AppCompatActivity {
             teller++;
             scoreView.setText(String.valueOf(teller));
             if (teller >= 7) {
-                // score = teller;
+                Global.score += teller;
+                Global.foutenLijst.add(fouten);
                 onCompletion();
             } else {
                 timer.schedule(new TimerTask() {
@@ -142,6 +143,18 @@ public class ExerciseTwo extends AppCompatActivity {
             v.setBackgroundResource(R.drawable.border_red);
             playSound();
             fouten++;
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            imageViewLeft.setBackgroundResource(0);
+                            imageViewRight.setBackgroundResource(0);
+                        }
+                    });
+                }
+            }, 2000);
         }
     }
 

@@ -10,9 +10,6 @@ import android.widget.TextView;
 
 public class Results extends AppCompatActivity {
 
-    int teller;
-    int fouten;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,16 +17,20 @@ public class Results extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Bundle bundle = getIntent().getExtras();
-        assert bundle != null;
-        teller = bundle.getInt("teller");
-        fouten = bundle.getInt("fouten");
+        String textFouten = "";
+
+        for(int i=0; i< Global.foutenLijst.size(); i++){
+            textFouten += "Oefening " +i+1+": " + Global.foutenLijst.get(i) + " fouten";
+            if(i +1< Global.foutenLijst.size()){
+                textFouten+= "\n";
+            }
+        }
 
         TextView scoreView = (TextView) findViewById(R.id.score);
-        scoreView.setText("Score: " + String.valueOf(teller));
+        scoreView.setText("Score: " + String.valueOf(Global.score));
 
         TextView errorView = (TextView) findViewById(R.id.errors);
-        errorView.setText("Fouten: " + String.valueOf(fouten));
+        errorView.setText("Fouten: " + String.valueOf(textFouten));
 
         Button button = (Button) findViewById(R.id.back);
         button.setText("Terug");

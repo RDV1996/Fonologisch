@@ -23,6 +23,8 @@ import be.thomasmore.fonoapp.Classes.Word;
 import be.thomasmore.fonoapp.rest.APIClient;
 import be.thomasmore.fonoapp.rest.APIInterface;
 
+import static be.thomasmore.fonoapp.Global.foutenLijst;
+
 public class ExerciseFour extends AppCompatActivity {
 
     String correct;
@@ -36,7 +38,7 @@ public class ExerciseFour extends AppCompatActivity {
     Word rightWord;
     Word wrongWord;
 
-    int fouten = 0;
+    Integer fouten = 0;
 
     int[] sm;
     SoundPool soundPool;
@@ -164,7 +166,7 @@ public class ExerciseFour extends AppCompatActivity {
 
     public void right(View v) {
         v.setBackgroundResource(R.drawable.border_green);
-        // score++;
+        Global.score++;
     }
 
     public void wrong(View v) {
@@ -175,11 +177,10 @@ public class ExerciseFour extends AppCompatActivity {
     public void volgende(View v) {
         counter++;
         if (counter == max) {
-            // foutenLijst.add(fouten);
+            foutenLijst.add(fouten);
             onCompletion();
         } else {
             setupQuestion();
-
         }
     }
     public void onCompletion() {

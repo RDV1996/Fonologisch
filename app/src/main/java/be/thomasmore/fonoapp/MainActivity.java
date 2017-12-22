@@ -43,9 +43,12 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
                     if (response.isSuccessful()) {
-                        user = response.body();
+                        Global.ingelogd = response.body();
                         Intent intent = new Intent(getApplicationContext(), CategorySelect.class);
                         startActivity(intent);
+                        Toast.makeText(getApplicationContext(),"Ingelogd met het account voor " + Global.ingelogd.getVoornaam()  + " "+ Global.ingelogd.getAchternaam(),
+                                Toast.LENGTH_LONG).show();
+
                     } else {
                         Toast.makeText(getApplicationContext(), response.message(),
                                 Toast.LENGTH_LONG).show();

@@ -15,10 +15,30 @@ public class User {
     private String login;
     @SerializedName("password")
     private String password;
+    @SerializedName("voornaam")
+    private String voornaam;
+    @SerializedName("achternaam")
+    private String achternaam;
 
     public User(String login, String password) {
         this.login = login;
         this.password = password;
+    }
+
+    public String getVoornaam() {
+        return voornaam;
+    }
+
+    public void setVoornaam(String voornaam) {
+        this.voornaam = voornaam;
+    }
+
+    public String getAchternaam() {
+        return achternaam;
+    }
+
+    public void setAchternaam(String achternaam) {
+        this.achternaam = achternaam;
     }
 
     public String getLogin() {
