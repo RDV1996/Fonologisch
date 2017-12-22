@@ -113,8 +113,8 @@ public class ExerciseTwo extends AppCompatActivity {
             soundPool = new SoundPool(maxStreams, AudioManager.STREAM_MUSIC, 0);
         }
 
-        sm[0] = soundPool.load(this, getResources().getIdentifier(leftWord.getWordsound(), "raw", getPackageName()), 1);
-        sm[1] = soundPool.load(this, getResources().getIdentifier(rightWord.getWordsound(), "raw", getPackageName()), 1);
+        sm[0] = soundPool.load(this, getResources().getIdentifier("word_" + leftWord.getWord().toLowerCase(), "raw", getPackageName()), 1);
+        sm[1] = soundPool.load(this, getResources().getIdentifier("word_" +rightWord.getWord().toLowerCase(), "raw", getPackageName()), 1);
 
         amg = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
     }
@@ -126,11 +126,11 @@ public class ExerciseTwo extends AppCompatActivity {
 
     private void basePictures() {
         ImageView imageViewLeft = (ImageView) findViewById(getResources().getIdentifier("left", "id", getPackageName()));
-        imageViewLeft.setImageResource(getResources().getIdentifier(leftWord.getMainImg(), "drawable", getPackageName()));
+        imageViewLeft.setImageResource(getResources().getIdentifier("main_" + leftWord.getWord().toLowerCase(), "drawable", getPackageName()));
         imageViewLeft.setTag(0);
 
         ImageView imageViewRight = (ImageView) findViewById(getResources().getIdentifier("right", "id", getPackageName()));
-        imageViewRight.setImageResource(getResources().getIdentifier(rightWord.getMainImg(), "drawable", getPackageName()));
+        imageViewRight.setImageResource(getResources().getIdentifier("main_" + rightWord.getWord().toLowerCase(), "drawable", getPackageName()));
         imageViewRight.setTag(1);
     }
 
