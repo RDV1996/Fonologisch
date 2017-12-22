@@ -59,9 +59,6 @@ public class ExerciseThree extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        TextView scoreView = (TextView) findViewById(R.id.score);
-        scoreView.setText(String.valueOf(Global.score));
-
         Collections.shuffle(Global.wordPairs);
 
         initWord();
@@ -77,6 +74,8 @@ public class ExerciseThree extends AppCompatActivity {
             @Override
             public void onCompletion(MediaPlayer player) {
                 numbers();
+                TextView scoreView = (TextView) findViewById(R.id.score);
+                scoreView.setText(String.valueOf(Global.score));
             }
         });
         playSound.start();
