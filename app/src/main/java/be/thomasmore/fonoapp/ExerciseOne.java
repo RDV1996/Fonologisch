@@ -127,6 +127,11 @@ public class ExerciseOne extends AppCompatActivity {
         amg = (AudioManager)this.getSystemService(Context.AUDIO_SERVICE);
     }
 
+    public void backToHome(View v) {
+        Intent intent = new Intent(this, CategorySelect.class);
+        startActivity(intent);
+    }
+
     public void nextActivity() {
         Intent intent = new Intent(this, ExerciseTwo.class);
         startActivity(intent);
