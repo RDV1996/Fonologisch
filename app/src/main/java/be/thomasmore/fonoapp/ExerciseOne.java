@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.Collections;
 import java.util.Random;
 
 import be.thomasmore.fonoapp.Classes.Word;
@@ -53,6 +54,8 @@ public class ExerciseOne extends AppCompatActivity {
         setContentView(R.layout.activity_exercise_one);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Collections.shuffle(Global.wordPairs);
 
         initWords();
         initSound();
