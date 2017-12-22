@@ -10,7 +10,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -31,8 +30,7 @@ import static be.thomasmore.fonoapp.Global.words;
 
 public class CategorySelect extends AppCompatActivity {
 
-    Button buttons[] = new Button[2];
-    CheckBox checkBox[] = new CheckBox[5];
+    ArrayList<Button> buttons;
     String selectedAge;
     String selectedType;
     String selectedTypeWord;
@@ -55,6 +53,7 @@ public class CategorySelect extends AppCompatActivity {
         Global.score = 0;
         Global.foutenLijst = new ArrayList<>();
         Global.wordPairs = new ArrayList<>();
+        buttons = new ArrayList<>();
 
     }
 
@@ -74,7 +73,7 @@ public class CategorySelect extends AppCompatActivity {
                         button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
                         button.setGravity(Gravity.CENTER);
                         button.setBackgroundResource(R.drawable.border_black);
-                        button.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.black));
+                        button.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.black));
 
                         LinearLayout.LayoutParams layoutTextParams =
                                 new LinearLayout.LayoutParams(
@@ -93,7 +92,7 @@ public class CategorySelect extends AppCompatActivity {
                             }
                         });
 
-                        buttons[i] = button;
+                        buttons.add(button);
                         linearLayout.addView(button);
                     }
                 } else {
@@ -140,7 +139,7 @@ public class CategorySelect extends AppCompatActivity {
                         layoutTextParams.height = 400;
                         layoutTextParams.width = 400;
                         button.setLayoutParams(layoutTextParams);
-                        button.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.black));
+                        button.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.black));
 
                         button.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View v) {
@@ -149,7 +148,7 @@ public class CategorySelect extends AppCompatActivity {
                             }
                         });
 
-                        buttons[i] = button;
+                        buttons.add(button);
                         linearLayout.addView(button);
                     }
 
@@ -180,33 +179,35 @@ public class CategorySelect extends AppCompatActivity {
                     LinearLayout linearLayout = (LinearLayout) findViewById(R.id.ageSelect);
                     linearLayout.removeAllViews();
                     for (int i = 0; i < wordPairTypes.size(); i++) {
-                        Button button = new Button(getApplicationContext());
-                        button.setText(wordPairTypes.get(i).getFrom() + " -> " + wordPairTypes.get(i).getTo());
-                        button.setTag(wordPairTypes.get(i).getId());
-                        button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
-                        button.setGravity(Gravity.CENTER);
-                        button.setBackgroundResource(R.drawable.border_black);
-                        button.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.black));
+                        if (wordPairTypes.get(i).getDisorderTypeId().equals(selectedType)) {
+                            Button button = new Button(getApplicationContext());
+                            button.setText(wordPairTypes.get(i).getFrom() + " -> " + wordPairTypes.get(i).getTo());
+                            button.setTag(wordPairTypes.get(i).getId());
+                            button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
+                            button.setGravity(Gravity.CENTER);
+                            button.setBackgroundResource(R.drawable.border_black);
+                            button.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.black));
 
-                        LinearLayout.LayoutParams layoutTextParams =
-                                new LinearLayout.LayoutParams(
-                                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                                        ViewGroup.LayoutParams.WRAP_CONTENT);
-                        layoutTextParams.leftMargin = 10;
-                        layoutTextParams.rightMargin = 10;
-                        layoutTextParams.height = 400;
-                        layoutTextParams.width = 400;
-                        button.setLayoutParams(layoutTextParams);
+                            LinearLayout.LayoutParams layoutTextParams =
+                                    new LinearLayout.LayoutParams(
+                                            ViewGroup.LayoutParams.WRAP_CONTENT,
+                                            ViewGroup.LayoutParams.WRAP_CONTENT);
+                            layoutTextParams.leftMargin = 10;
+                            layoutTextParams.rightMargin = 10;
+                            layoutTextParams.height = 400;
+                            layoutTextParams.width = 400;
+                            button.setLayoutParams(layoutTextParams);
 
-                        button.setOnClickListener(new View.OnClickListener() {
-                            public void onClick(View v) {
-                                selectedTypeWord = v.getTag().toString();
-                                GetWords();
-                            }
-                        });
+                            button.setOnClickListener(new View.OnClickListener() {
+                                public void onClick(View v) {
+                                    selectedTypeWord = v.getTag().toString();
+                                    GetWords();
+                                }
+                            });
 
-                        buttons[i] = button;
-                        linearLayout.addView(button);
+                            buttons.add(button);
+                            linearLayout.addView(button);
+                        }
                     }
 
                 } else
@@ -271,10 +272,15 @@ public class CategorySelect extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     Word word = response.body();
                     Global.words.add(word);
-                    if (words.size() == Global.wordPairs.size() * 2) {
+                    if (words.size() == Global.wordPairs.size() * 2 && words.size() >=4) {
                         Intent intent = new Intent(getApplicationContext(), ExerciseOne.class);
                         startActivity(intent);
                     }
+                    else{
+                        Toast.makeText(getApplicationContext(), "Niet genoeg oefeningen",
+                                Toast.LENGTH_LONG).show();
+                    }
+
 
                 } else {
                     Toast.makeText(getApplicationContext(), response.message(),
