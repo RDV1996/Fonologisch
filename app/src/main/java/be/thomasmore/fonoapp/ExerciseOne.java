@@ -71,6 +71,8 @@ public class ExerciseOne extends AppCompatActivity {
                 randomPictures();
                 TextView scoreView = (TextView) findViewById(R.id.score);
                 scoreView.setText(String.valueOf(Global.score));
+                ImageView homeView = (ImageView) findViewById(R.id.home);
+                homeView.setImageResource(R.drawable.home);
             }
         });
         playSound.start();
