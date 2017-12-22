@@ -10,6 +10,7 @@
     <string name="title_activity_results">Resultaten</string>
 
     <string name="score">Score</string>
+    <string name="home">Home</string>
 
     <!--Content descriptions-->
     <string name="cd_sound">Sound</string>
