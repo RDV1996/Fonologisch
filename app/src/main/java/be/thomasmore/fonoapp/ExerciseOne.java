@@ -54,9 +54,6 @@ public class ExerciseOne extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        TextView scoreView = (TextView) findViewById(R.id.score);
-        scoreView.setText(String.valueOf(Global.score));
-
         initWords();
         initSound();
         basePictures();
@@ -69,6 +66,8 @@ public class ExerciseOne extends AppCompatActivity {
             @Override
             public void onCompletion(MediaPlayer player){
                 randomPictures();
+                TextView scoreView = (TextView) findViewById(R.id.score);
+                scoreView.setText(String.valueOf(Global.score));
             }
         });
         playSound.start();

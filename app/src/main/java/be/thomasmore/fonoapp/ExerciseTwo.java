@@ -50,9 +50,6 @@ public class ExerciseTwo extends AppCompatActivity {
 
         Collections.shuffle(Global.wordPairs);
 
-        TextView scoreView = (TextView) findViewById(R.id.score);
-        scoreView.setText(String.valueOf(Global.score));
-
         initWords();
         initSound();
         k = rand.nextInt(2);
@@ -63,6 +60,8 @@ public class ExerciseTwo extends AppCompatActivity {
             public void onCompletion(MediaPlayer player){
                 basePictures();
                 playSound();
+                TextView scoreView = (TextView) findViewById(R.id.score);
+                scoreView.setText(String.valueOf(Global.score));
             }
         });
         playSound.start();
