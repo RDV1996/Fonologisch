@@ -38,6 +38,9 @@ public class ExerciseTwo extends AppCompatActivity {
     Word leftWord;
     Word rightWord;
 
+    MediaPlayer playSound;
+    int media_length;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,22 +50,46 @@ public class ExerciseTwo extends AppCompatActivity {
 
         Collections.shuffle(Global.wordPairs);
 
-        TextView scoreView = (TextView) findViewById(R.id.score);
-        scoreView.setText(String.valueOf(teller));
-
         initWords();
         initSound();
         k = rand.nextInt(2);
 
-        final MediaPlayer playSound = MediaPlayer.create(this,R.raw.instructie2);
+        playSound = MediaPlayer.create(this,R.raw.instructie2);
         playSound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer player){
                 basePictures();
                 playSound();
+                TextView scoreView = (TextView) findViewById(R.id.score);
+                scoreView.setText(String.valueOf(Global.score));
             }
         });
         playSound.start();
+    }
+
+    // Pauzeert oefening
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if(playSound != null)
+        {
+            playSound.pause();
+            media_length = playSound.getCurrentPosition();
+        }
+    }
+
+    // Stelt waardes in bij het opnieuw openen van de app
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if(playSound != null)
+        {
+            playSound.seekTo(media_length);
+            playSound.start();
+        }
+
     }
 
     private void initWords() {
@@ -116,12 +143,13 @@ public class ExerciseTwo extends AppCompatActivity {
         TextView scoreView = (TextView) findViewById(R.id.score);
 
         if (tag.equals(String.valueOf(k))) {
+            playSound();
             v.setBackgroundResource(R.drawable.border_green);
             k = rand.nextInt(2);
+            Global.score++;
             teller++;
-            scoreView.setText(String.valueOf(teller));
+            scoreView.setText(String.valueOf(Global.score));
             if (teller >= 7) {
-                Global.score += teller;
                 Global.foutenLijst.add(fouten);
                 onCompletion();
             } else {

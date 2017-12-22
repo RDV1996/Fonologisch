@@ -44,15 +44,15 @@ public class ExerciseOne extends AppCompatActivity {
     Word rightWord;
     int counter = 0;
 
+    MediaPlayer playSound;
+    int media_length;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_one);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        TextView scoreView = (TextView) findViewById(R.id.score);
-        scoreView.setText(String.valueOf(teller));
 
         initWords();
         initSound();
@@ -61,14 +61,39 @@ public class ExerciseOne extends AppCompatActivity {
         findViewById(R.id.right).setOnDragListener(new MyDragListener());
         findViewById(R.id.left).setOnDragListener(new MyDragListener());
 
-        final MediaPlayer playSound = MediaPlayer.create(this,R.raw.instructie1);
+        playSound = MediaPlayer.create(this,R.raw.instructie1);
         playSound.setOnCompletionListener(new MediaPlayer.OnCompletionListener(){
             @Override
             public void onCompletion(MediaPlayer player){
                 randomPictures();
+                TextView scoreView = (TextView) findViewById(R.id.score);
+                scoreView.setText(String.valueOf(Global.score));
             }
         });
         playSound.start();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if(playSound != null)
+        {
+            playSound.pause();
+            media_length = playSound.getCurrentPosition();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if(playSound != null)
+        {
+            playSound.seekTo(media_length);
+            playSound.start();
+        }
+
     }
 
     private void initWords() {

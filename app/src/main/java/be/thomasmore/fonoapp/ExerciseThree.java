@@ -32,7 +32,7 @@ public class ExerciseThree extends AppCompatActivity {
     int column = 2;
     int row = 2;
     int total = column * row;
-    TextView textViews[] = new TextView[total];
+    ImageView imageViews[] = new ImageView[total];
 
     int cijfers = 1;
     int teller = 0;
@@ -50,6 +50,7 @@ public class ExerciseThree extends AppCompatActivity {
     List<String> imageViewFilesString = Arrays.asList("leftTop", "leftBottom", "rightTop", "rightBottom");
 
     MediaPlayer playSound;
+    int media_length;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +58,6 @@ public class ExerciseThree extends AppCompatActivity {
         setContentView(R.layout.activity_exercise_three);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        TextView scoreView = (TextView) findViewById(R.id.score);
-        scoreView.setText(String.valueOf(teller));
 
         Collections.shuffle(Global.wordPairs);
 
@@ -71,10 +69,13 @@ public class ExerciseThree extends AppCompatActivity {
         findViewById(R.id.leftBottom).setOnDragListener(new ExerciseThree.MyDragListener());
         findViewById(R.id.rightBottom).setOnDragListener(new ExerciseThree.MyDragListener());
 
+        playSound = MediaPlayer.create(this,R.raw.instructie3);
         playSound.setOnCompletionListener(new MediaPlayer.OnCompletionListener(){
             @Override
             public void onCompletion(MediaPlayer player) {
                 numbers();
+                TextView scoreView = (TextView) findViewById(R.id.score);
+                scoreView.setText(String.valueOf(Global.score));
             }
         });
         playSound.start();
@@ -87,6 +88,17 @@ public class ExerciseThree extends AppCompatActivity {
         if(playSound != null)
         {
             playSound.pause();
+            media_length = playSound.getCurrentPosition();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(playSound != null)
+        {
+            playSound.seekTo(media_length);
+            playSound.start();
         }
     }
 
@@ -138,41 +150,39 @@ public class ExerciseThree extends AppCompatActivity {
             linearLayout.setGravity(Gravity.CENTER_HORIZONTAL);
             mainLayout.addView(linearLayout);
             for (int j = 0; j < column; j++) {
-                TextView textView = new TextView(this);
-                textView.setBackgroundResource(R.drawable.border_black);
+                ImageView imageViewInner = new ImageView(this);
+                imageViewInner.setBackgroundResource(R.drawable.border_black);
 
-                LinearLayout.LayoutParams textLayoutParams = new LinearLayout.LayoutParams(100, 100);
-                textLayoutParams.leftMargin = 5;
-                textLayoutParams.topMargin = 5;
-                textLayoutParams.width = 150;
-                textLayoutParams.height = 150;
-                textView.setLayoutParams(textLayoutParams);
+                LinearLayout.LayoutParams imageLayoutParams = new LinearLayout.LayoutParams(100, 100);
+                imageLayoutParams.leftMargin = 5;
+                imageLayoutParams.topMargin = 5;
+                imageLayoutParams.width = 150;
+                imageLayoutParams.height = 150;
+                imageViewInner.setLayoutParams(imageLayoutParams);
 
                 String imageFile = imageViewFilesString.get(cijfers - 1);
+
                 ImageView imageView = (ImageView) findViewById(getResources().getIdentifier(imageFile, "id", getPackageName()));
                 if (cijfers == 1) {
                     imageView.setImageResource(getResources().getIdentifier(leftBottomWord.getMainImg(), "drawable", getPackageName()));
-                    textView.setBackgroundResource(R.drawable.border_green);
+                    imageViewInner.setBackgroundResource(R.drawable.border_green);
                 } else if (cijfers == 2) {
                     imageView.setImageResource(getResources().getIdentifier(rightBottomWord.getMainImg(), "drawable", getPackageName()));
-                    textView.setBackgroundResource(R.drawable.border_black);
+                    imageViewInner.setBackgroundResource(R.drawable.border_black);
                 } else if (cijfers == 3) {
                     imageView.setImageResource(getResources().getIdentifier(leftTopWord.getMainImg(), "drawable", getPackageName()));
-                    textView.setBackgroundResource(R.drawable.border_blue);
+                    imageViewInner.setBackgroundResource(R.drawable.border_blue);
                 } else if (cijfers == 4) {
                     imageView.setImageResource(getResources().getIdentifier(rightTopWord.getMainImg(), "drawable", getPackageName()));
-                    textView.setBackgroundResource(R.drawable.border_red);
+                    imageViewInner.setBackgroundResource(R.drawable.border_red);
                 }
 
                 imageView.setTag(cijfers - 1);
 
 
-                textView.setTag(cijfers - 1);
+                imageViewInner.setTag(cijfers - 1);
 
-                textView.setGravity(Gravity.CENTER);
-                textView.setTextSize(20);
-
-                textView.setOnTouchListener(new View.OnTouchListener() {
+                imageViewInner.setOnTouchListener(new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View view, MotionEvent motionEvent) {
                         if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
@@ -186,8 +196,8 @@ public class ExerciseThree extends AppCompatActivity {
                     }
                 });
 
-                textViews[i] = textView;
-                linearLayout.addView(textView);
+                imageViews[i] = imageViewInner;
+                linearLayout.addView(imageViewInner);
                 cijfers++;
             }
         }
@@ -215,9 +225,9 @@ public class ExerciseThree extends AppCompatActivity {
         }
 
         teller++;
-        scoreView.setText(String.valueOf(teller));
-        if (teller == 4) {
-            Global.score += teller;
+        Global.score++;
+        scoreView.setText(String.valueOf(Global.score));
+        if (teller >= 4) {
             Global.foutenLijst.add(fouten);
             onCompletion();
         }
@@ -233,7 +243,7 @@ public class ExerciseThree extends AppCompatActivity {
         @Override
         public boolean onDrag(View v, DragEvent event) {
             View view = (View) event.getLocalState();
-            TextView dropped = (TextView) view;
+            ImageView dropped = (ImageView) view;
             String tag = dropped.getTag() + "";
 
             switch (event.getAction()) {
