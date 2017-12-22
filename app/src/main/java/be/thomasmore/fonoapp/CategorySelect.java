@@ -52,6 +52,9 @@ public class CategorySelect extends AppCompatActivity {
         apiInetface = APIClient.getClient().create(APIInterface.class);
         makeAgeLayout();
         Global.words = new ArrayList<>();
+        Global.score = 0;
+        Global.foutenLijst = new ArrayList<>();
+        Global.wordPairs = new ArrayList<>();
 
     }
 

@@ -70,6 +70,8 @@ public class ExerciseFive extends AppCompatActivity {
     public void makeGame() {
         but1.setEnabled(false);
         but2.setEnabled(false);
+        TextView player = (TextView) findViewById(R.id.nameChildEx);
+        player.setText(Global.ingelogd.getVoornaam());
         Collections.shuffle(Global.words);
         int size = Global.words.size();
 
@@ -130,7 +132,7 @@ public class ExerciseFive extends AppCompatActivity {
                 imageView.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         if (Integer.parseInt(v.getTag().toString()) != -1) {
-                            imageView.setImageResource(getResources().getIdentifier(Global.words.get(Integer.parseInt(v.getTag().toString())).getMainImg(), "drawable", getPackageName()));
+                            imageView.setImageResource(getResources().getIdentifier("main_" + Global.words.get(Integer.parseInt(v.getTag().toString())).getWord().toLowerCase(), "drawable", getPackageName()));
                             scorePhase();
                             v.setTag(-1);
                         }
@@ -163,6 +165,7 @@ public class ExerciseFive extends AppCompatActivity {
         if (Integer.parseInt(v.getTag().toString()) == 1) {
             if (player == 1) {
                 score1++;
+                Global.score++;
                 teller++;
                 player = 2;
             } else {
@@ -202,6 +205,7 @@ public class ExerciseFive extends AppCompatActivity {
         } else {
             winnaar = "Gelijkspel voor oefening 5!";
         }
+        Global.foutenLijst.add(fouten);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(winnaar + "\nTotale Fouten: " + String.valueOf(fouten))
                 .setTitle(R.string.title_activity_exercise_five)

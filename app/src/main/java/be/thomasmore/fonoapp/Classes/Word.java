@@ -11,25 +11,15 @@ public class Word {
     private String id;
     @SerializedName("word")
     private String word;
-    @SerializedName("mainImg")
-    private String mainImg;
-    @SerializedName("subImg")
-    private String subImg;
-    @SerializedName("wordSound")
-    private String Wordsound;
     @SerializedName("sentence")
     private String sentence;
-    @SerializedName("sentenceSound")
-    private String sentenceSound;
 
-    public Word(String id, String word, String mainImg, String subImg, String wordsound, String sentence, String sentenceSound) {
+
+    public Word(String id, String word, String sentence) {
         this.id = id;
         this.word = word;
-        this.mainImg = mainImg;
-        this.subImg = subImg;
-        Wordsound = wordsound;
+
         this.sentence = sentence;
-        this.sentenceSound = sentenceSound;
     }
 
     public Word() {
@@ -51,44 +41,12 @@ public class Word {
         this.word = word;
     }
 
-    public String getMainImg() {
-        return mainImg;
-    }
-
-    public void setMainImg(String mainImg) {
-        this.mainImg = mainImg;
-    }
-
-    public String getSubImg() {
-        return subImg;
-    }
-
-    public void setSubImg(String subImg) {
-        this.subImg = subImg;
-    }
-
-    public String getWordsound() {
-        return Wordsound;
-    }
-
-    public void setWordsound(String wordsound) {
-        Wordsound = wordsound;
-    }
-
     public String getSentence() {
         return sentence;
     }
 
     public void setSentence(String sentence) {
         this.sentence = sentence;
-    }
-
-    public String getSentenceSound() {
-        return sentenceSound;
-    }
-
-    public void setSentenceSound(String sentenceSound) {
-        this.sentenceSound = sentenceSound;
     }
 
 
