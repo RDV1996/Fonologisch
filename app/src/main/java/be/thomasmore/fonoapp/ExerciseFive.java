@@ -132,7 +132,7 @@ public class ExerciseFive extends AppCompatActivity {
                 imageView.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         if (Integer.parseInt(v.getTag().toString()) != -1) {
-                            imageView.setImageResource(getResources().getIdentifier(Global.words.get(Integer.parseInt(v.getTag().toString())).getMainImg(), "drawable", getPackageName()));
+                            imageView.setImageResource(getResources().getIdentifier("main_" + Global.words.get(Integer.parseInt(v.getTag().toString())).getWord().toLowerCase(), "drawable", getPackageName()));
                             scorePhase();
                             v.setTag(-1);
                         }

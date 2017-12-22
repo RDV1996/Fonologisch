@@ -116,8 +116,8 @@ public class ExerciseOne extends AppCompatActivity {
             soundPool = new SoundPool(maxStreams, AudioManager.STREAM_MUSIC, 0);
         }
 
-        sm[0] = soundPool.load(this, getResources().getIdentifier(leftWord.getWordsound(), "raw", getPackageName()), 1);
-        sm[1] = soundPool.load(this, getResources().getIdentifier(rightWord.getWordsound(), "raw", getPackageName()), 1);
+        sm[0] = soundPool.load(this, getResources().getIdentifier("word_" + leftWord.getWord().toLowerCase(), "raw", getPackageName()), 1);
+        sm[1] = soundPool.load(this, getResources().getIdentifier("word_" + rightWord.getWord().toLowerCase(), "raw", getPackageName()), 1);
 
         amg = (AudioManager)this.getSystemService(Context.AUDIO_SERVICE);
     }
@@ -130,11 +130,11 @@ public class ExerciseOne extends AppCompatActivity {
     private void basePictures() {
 
         ImageView imageViewLeft = (ImageView) findViewById(getResources().getIdentifier("left", "id", getPackageName()));
-        imageViewLeft.setImageResource(getResources().getIdentifier(leftWord.getSubImg(), "drawable", getPackageName()));
+        imageViewLeft.setImageResource(getResources().getIdentifier("sub_"  + leftWord.getWord().toLowerCase(), "drawable", getPackageName()));
         imageViewLeft.setTag(0);
 
         ImageView imageViewRight = (ImageView) findViewById(getResources().getIdentifier("right", "id", getPackageName()));
-        imageViewRight.setImageResource(getResources().getIdentifier(rightWord.getSubImg(), "drawable", getPackageName()));
+        imageViewRight.setImageResource(getResources().getIdentifier("sub_" + rightWord.getWord().toLowerCase(), "drawable", getPackageName()));
         imageViewRight.setTag(1);
     }
 
@@ -165,9 +165,9 @@ public class ExerciseOne extends AppCompatActivity {
                 k = rand.nextInt(2);
 
                 if (k == 0) {
-                    imageView.setImageResource(getResources().getIdentifier(leftWord.getMainImg(), "drawable", getPackageName()));
+                    imageView.setImageResource(getResources().getIdentifier("main_" + leftWord.getWord().toLowerCase(), "drawable", getPackageName()));
                 } else {
-                    imageView.setImageResource(getResources().getIdentifier(rightWord.getMainImg(), "drawable", getPackageName()));
+                    imageView.setImageResource(getResources().getIdentifier("main_" +rightWord.getWord().toLowerCase(), "drawable", getPackageName()));
                 }
 
                 imageView.setBackgroundResource(R.drawable.border_black);

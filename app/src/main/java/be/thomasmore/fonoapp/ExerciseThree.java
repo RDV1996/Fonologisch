@@ -63,14 +63,14 @@ public class ExerciseThree extends AppCompatActivity {
 
         initWord();
         initSound();
-        playSound = MediaPlayer.create(this,R.raw.instructie3);
+        playSound = MediaPlayer.create(this, R.raw.instructie3);
         findViewById(R.id.leftTop).setOnDragListener(new ExerciseThree.MyDragListener());
         findViewById(R.id.rightTop).setOnDragListener(new ExerciseThree.MyDragListener());
         findViewById(R.id.leftBottom).setOnDragListener(new ExerciseThree.MyDragListener());
         findViewById(R.id.rightBottom).setOnDragListener(new ExerciseThree.MyDragListener());
 
-        playSound = MediaPlayer.create(this,R.raw.instructie3);
-        playSound.setOnCompletionListener(new MediaPlayer.OnCompletionListener(){
+        playSound = MediaPlayer.create(this, R.raw.instructie3);
+        playSound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer player) {
                 numbers();
@@ -85,8 +85,7 @@ public class ExerciseThree extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
-        if(playSound != null)
-        {
+        if (playSound != null) {
             playSound.pause();
             media_length = playSound.getCurrentPosition();
         }
@@ -95,8 +94,7 @@ public class ExerciseThree extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(playSound != null)
-        {
+        if (playSound != null) {
             playSound.seekTo(media_length);
             playSound.start();
         }
@@ -126,10 +124,10 @@ public class ExerciseThree extends AppCompatActivity {
             soundPool = new SoundPool(maxStreams, AudioManager.STREAM_MUSIC, 0);
         }
 
-        sm[0] = soundPool.load(this, getResources().getIdentifier(leftBottomWord.getWordsound(), "raw", getPackageName()), 1);
-        sm[1] = soundPool.load(this, getResources().getIdentifier(rightBottomWord.getWordsound(), "raw", getPackageName()), 1);
-        sm[2] = soundPool.load(this, getResources().getIdentifier(leftTopWord.getWordsound(), "raw", getPackageName()), 1);
-        sm[3] = soundPool.load(this, getResources().getIdentifier(rightTopWord.getWordsound(), "raw", getPackageName()), 1);
+        sm[0] = soundPool.load(this, getResources().getIdentifier("word_" + leftBottomWord.getWord().toLowerCase(), "raw", getPackageName()), 1);
+        sm[1] = soundPool.load(this, getResources().getIdentifier("word_" + rightBottomWord.getWord().toLowerCase(), "raw", getPackageName()), 1);
+        sm[2] = soundPool.load(this, getResources().getIdentifier("word_" + leftTopWord.getWord().toLowerCase(), "raw", getPackageName()), 1);
+        sm[3] = soundPool.load(this, getResources().getIdentifier("word_" + rightTopWord.getWord().toLowerCase(), "raw", getPackageName()), 1);
 
         amg = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
     }
@@ -164,16 +162,16 @@ public class ExerciseThree extends AppCompatActivity {
 
                 ImageView imageView = (ImageView) findViewById(getResources().getIdentifier(imageFile, "id", getPackageName()));
                 if (cijfers == 1) {
-                    imageView.setImageResource(getResources().getIdentifier(leftBottomWord.getMainImg(), "drawable", getPackageName()));
+                    imageView.setImageResource(getResources().getIdentifier("main_" + leftBottomWord.getWord().toLowerCase(), "drawable", getPackageName()));
                     imageViewInner.setBackgroundResource(R.drawable.border_green);
                 } else if (cijfers == 2) {
-                    imageView.setImageResource(getResources().getIdentifier(rightBottomWord.getMainImg(), "drawable", getPackageName()));
+                    imageView.setImageResource(getResources().getIdentifier("main_" + rightBottomWord.getWord().toLowerCase() , "drawable", getPackageName()));
                     imageViewInner.setBackgroundResource(R.drawable.border_black);
                 } else if (cijfers == 3) {
-                    imageView.setImageResource(getResources().getIdentifier(leftTopWord.getMainImg(), "drawable", getPackageName()));
+                    imageView.setImageResource(getResources().getIdentifier( "main_" + leftTopWord.getWord().toLowerCase(), "drawable", getPackageName()));
                     imageViewInner.setBackgroundResource(R.drawable.border_blue);
                 } else if (cijfers == 4) {
-                    imageView.setImageResource(getResources().getIdentifier(rightTopWord.getMainImg(), "drawable", getPackageName()));
+                    imageView.setImageResource(getResources().getIdentifier( "main_" + rightTopWord.getWord().toLowerCase() , "drawable", getPackageName()));
                     imageViewInner.setBackgroundResource(R.drawable.border_red);
                 }
 
@@ -209,16 +207,16 @@ public class ExerciseThree extends AppCompatActivity {
 
         switch (tag) {
             case "0":
-                view.setBackgroundResource(getResources().getIdentifier(leftBottomWord.getMainImg(), "drawable", getPackageName()));
+                view.setBackgroundResource(getResources().getIdentifier("main_" + leftBottomWord.getWord().toLowerCase(), "drawable", getPackageName()));
                 break;
             case "1":
-                view.setBackgroundResource(getResources().getIdentifier(rightBottomWord.getMainImg(), "drawable", getPackageName()));
+                view.setBackgroundResource(getResources().getIdentifier("main_" + rightBottomWord.getWord().toLowerCase() , "drawable", getPackageName()));
                 break;
             case "2":
-                view.setBackgroundResource(getResources().getIdentifier(leftTopWord.getMainImg(), "drawable", getPackageName()));
+                view.setBackgroundResource(getResources().getIdentifier("main_" + leftTopWord.getWord().toLowerCase() , "drawable", getPackageName()));
                 break;
             case "3":
-                view.setBackgroundResource(getResources().getIdentifier(rightTopWord.getMainImg(), "drawable", getPackageName()));
+                view.setBackgroundResource(getResources().getIdentifier("main_" + rightTopWord.getWord().toLowerCase() , "drawable", getPackageName()));
                 break;
             default:
                 break;

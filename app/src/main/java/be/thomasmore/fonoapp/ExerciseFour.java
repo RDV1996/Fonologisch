@@ -73,7 +73,7 @@ public class ExerciseFour extends AppCompatActivity {
         } else {
             max = Global.wordPairs.size();
         }
-        sm = new int[max*2];
+        sm = new int[max * 2];
         initSound();
         final MediaPlayer playSound = MediaPlayer.create(this, R.raw.instructie4);
         playSound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -95,28 +95,29 @@ public class ExerciseFour extends AppCompatActivity {
             soundPool = new SoundPool(maxStreams, AudioManager.STREAM_MUSIC, 0);
         }
         int Scounter = 0;
-        for(int i = 0; i < max; i++){
-            sm[Scounter] = soundPool.load(this, getResources().getIdentifier(Global.getWordById(Global.wordPairs.get(i).getRightWordId()).getSentenceSound(), "raw", getPackageName()), 1);
+        for (int i = 0; i < max; i++) {
+            sm[Scounter] = soundPool.load(this, getResources().getIdentifier(Global.getWordById("zin_" + Global.wordPairs.get(i).getRightWordId()).getWord().toLowerCase(), "raw", getPackageName()), 1);
             Scounter++;
-            sm[Scounter] = soundPool.load(this, getResources().getIdentifier(Global.getWordById(Global.wordPairs.get(i).getWrongWordId()).getSentenceSound(), "raw", getPackageName()), 1);
+            sm[Scounter] = soundPool.load(this, getResources().getIdentifier(Global.getWordById("zin_" + Global.wordPairs.get(i).getWrongWordId()).getWord().toLowerCase(), "raw", getPackageName()), 1);
             Scounter++;
         }
         amg = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
 
     }
+
     public void playSound(View v) {
         soundPool.play(sm[soundCounter], 1, 1, 1, 0, 1f);
     }
+
     private void toon(String tekst) {
         Toast.makeText(getBaseContext(), tekst, Toast.LENGTH_SHORT).show();
     }
 
 
-
     public void setupQuestion() {
         Button button = (Button) findViewById(R.id.volgendeEx4);
         button.setVisibility(View.GONE);
-        soundCounter = counter*2;
+        soundCounter = counter * 2;
         if (Math.random() < 0.5) {
             rightWord = Global.getWordById(Global.wordPairs.get(counter).getRightWordId());
             wrongWord = Global.getWordById(Global.wordPairs.get(counter).getWrongWordId());
@@ -124,7 +125,7 @@ public class ExerciseFour extends AppCompatActivity {
         } else {
             rightWord = Global.getWordById(Global.wordPairs.get(counter).getWrongWordId());
             wrongWord = Global.getWordById(Global.wordPairs.get(counter).getRightWordId());
-            soundCounter ++;
+            soundCounter++;
         }
 
         if (Math.random() < 0.5) {
@@ -140,7 +141,7 @@ public class ExerciseFour extends AppCompatActivity {
         }
 
         text.setText(rightWord.getSentence());
-        img.setImageResource(getResources().getIdentifier(rightWord.getMainImg(), "drawable", getPackageName()));
+        img.setImageResource(getResources().getIdentifier("main_" + rightWord.getWord().toLowerCase(), "drawable", getPackageName()));
         correct = rightWord.getWord();
         leftButton.setEnabled(true);
         leftButton.setBackgroundResource(R.drawable.border_black);
@@ -183,6 +184,7 @@ public class ExerciseFour extends AppCompatActivity {
             setupQuestion();
         }
     }
+
     public void onCompletion() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Fouten: " + String.valueOf(fouten))
@@ -196,12 +198,14 @@ public class ExerciseFour extends AppCompatActivity {
                 .setCancelable(false)
                 .show();
     }
+
     // Maakt de SoundPool leeg
     public final void cleanUpIfEnd() {
         sm = null;
         soundPool.release();
         soundPool = null;
     }
+
     public void nextActivity() {
         Intent intent = new Intent(this, ExerciseFive.class);
         startActivity(intent);
