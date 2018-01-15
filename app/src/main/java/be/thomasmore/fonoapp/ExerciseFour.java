@@ -96,9 +96,9 @@ public class ExerciseFour extends AppCompatActivity {
         }
         int Scounter = 0;
         for (int i = 0; i < max; i++) {
-            sm[Scounter] = soundPool.load(this, getResources().getIdentifier(Global.getWordById("zin_" + Global.wordPairs.get(i).getRightWordId()).getWord().toLowerCase(), "raw", getPackageName()), 1);
+            sm[Scounter] = soundPool.load(this, getResources().getIdentifier("zin_" + Global.getWordById(Global.wordPairs.get(i).getRightWordId()).getWord().toLowerCase(), "raw", getPackageName()), 1);
             Scounter++;
-            sm[Scounter] = soundPool.load(this, getResources().getIdentifier(Global.getWordById("zin_" + Global.wordPairs.get(i).getWrongWordId()).getWord().toLowerCase(), "raw", getPackageName()), 1);
+            sm[Scounter] = soundPool.load(this, getResources().getIdentifier("zin_" + Global.getWordById(Global.wordPairs.get(i).getWrongWordId()).getWord().toLowerCase(), "raw", getPackageName()), 1);
             Scounter++;
         }
         amg = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
