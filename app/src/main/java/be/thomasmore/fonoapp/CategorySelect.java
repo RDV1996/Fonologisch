@@ -273,18 +273,15 @@ public class CategorySelect extends AppCompatActivity {
                     Word word = response.body();
                     Global.words.add(word);
                     if (words.size() == Global.wordPairs.size() * 2) {
-                        if(words.size() >=4) {
+                        if (words.size() >= 4) {
                             Intent intent = new Intent(getApplicationContext(), ExerciseOne.class);
                             startActivity(intent);
-                        }
-                        else {
+                        } else {
 
                             Toast.makeText(getApplicationContext(), "niet genoeg oefeningen, kies een andere categorie",
                                     Toast.LENGTH_LONG).show();
                         }
                     }
-
-
                 } else {
                     Toast.makeText(getApplicationContext(), response.message(),
                             Toast.LENGTH_LONG).show();
